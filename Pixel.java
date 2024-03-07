@@ -1,6 +1,11 @@
 /**
- * ...
+ * Pixel
+ * This class provides methods and data to represent an RGB/RGBA pixel where each
+ * channel is 8 bits, ranging from 0-255.
+ * @author B. Willcutt 
+ * @version 1.0
  */
+
 public class Pixel {
 
   /** Integer value from 0 to 255 representing the amount of red in a pixel */
@@ -127,7 +132,11 @@ public class Pixel {
   }
 
   /**
-   * Clamps a value between an upper and lower bound.
+   * Clamps an integer value between an upper and lower bound.
+   * @param value The value to clamp
+   * @param lower The lower bound
+   * @param upper The upper bound
+   * @return The clamped value
    */
   private int clamp(int value, int lower, int upper) {
     if (value <= lower) 
@@ -138,7 +147,13 @@ public class Pixel {
     
     return value;
   }
-
+  /**
+   * Clamps a double value between an upper and lower bound.
+   * @param value The value to clamp
+   * @param lower The lower bound
+   * @param upper The upper bound
+   * @return The clamped value
+   */
   private double clamp(double value, double lower, double upper) {
     if (value <= lower)
       return lower;
