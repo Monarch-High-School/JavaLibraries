@@ -87,7 +87,7 @@ public class Image {
     public Image(int w, int h, TYPE t, FORMAT f) {
         type = t;
         format = f;
-        pixels = new Pixel[w][h];
+        pixels = new Pixel[h][w];
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
                 pixels[row][col] = new Pixel(255, 255, 255, 1.0);
