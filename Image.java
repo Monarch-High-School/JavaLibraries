@@ -73,15 +73,7 @@ public class Image {
             pixels = new Pixel[height][width];
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                        // buffered image uses getRGB(x, y)
-                    switch(type) {
-                        case RGB:
-                            pixels[row][col] = new Pixel(bi.getRGB(col, row));
-                            break;
-                        case RGBA:
-                            pixels[row][col] = new Pixel(bi.getRGBA(col, row));
-                        break;
-                    }
+                    pixels[row][col] = new Pixel(bi.getRGB(col, row));
                 }
             }
         }
