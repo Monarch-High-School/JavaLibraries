@@ -33,7 +33,7 @@ public class Image {
     };
 
     /** 
-     * The format of the image. This will be determined by the 
+     * The format of the image. 
      */
     public static enum FORMAT {
         /**
@@ -60,6 +60,13 @@ public class Image {
         try {
             File inFile = new File(filename);
             BufferedImage bi = ImageIO.read(inFile);
+                // figure out the type of image
+            int tp = bi.getType();
+            if (tp == BufferedImage.TYPE_4BYTE_ABGR)
+                type = RGBA;
+            else
+                type = RGB;
+
                 // create pixel 2D Array
             int width = bi.getWidth();
             int height = bi.getHeight();
@@ -67,7 +74,14 @@ public class Image {
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
                         // buffered image uses getRGB(x, y)
-                    pixels[row][col] = new Pixel(bi.getRGB(col, row));
+                    switch(type) {
+                        case RGB:
+                            pixels[row][col] = new Pixel(bi.getRGB(col, row));
+                            break;
+                        case RGBA:
+                            pixels[row][col] = new Pixel(bi.getRGBA(col, row));
+                        break;
+                    }
                 }
             }
         }
@@ -87,7 +101,7 @@ public class Image {
     public Image(int w, int h, TYPE t, FORMAT f) {
         type = t;
         format = f;
-        pixels = new Pixels[w][h];
+        pixels = new Pixel[h][w];
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
                 pixels[row][col] = new Pixel(255, 255, 255, 1.0);
@@ -116,7 +130,7 @@ public class Image {
      * Modifying the return value of this array will modify the image.
      * @return 2D array of Pixel objects
      */
-    public Pixels[][] getPixels() {
+    public Pixel[][] getPixels() {
         return pixels;
     }
 
@@ -125,14 +139,14 @@ public class Image {
         try {
                 // assum jpg is the standard file
             String fileFormat = "jpg";
-            if (format == PNG) 
+            if (format == FORMAT.PNG) 
                 fileFormat = "png";
 
             File outFile = new File(filename);
-            ImageIO.write(pixelsToBufferedImage(), fileFormat, filename);
+            ImageIO.write(pixelsToBufferedImage(), fileFormat, outFile);
         }
         catch (IOException e) {
-            System.err.println("Could not write image to file '" + filename + "'" + "because: " + e.getMessage());
+            System.err.println("Could not write image to file '" + filename + "'" + " because: " + e.getMessage());
         }
     }
 
@@ -145,10 +159,11 @@ public class Image {
                 biType = BufferedImage.TYPE_INT_RGB;
                 break;
             case RGBA:
-                biType = BufferedImage.TYPE_INT_RGBA;
+            default:
+                biType = BufferedImage.TYPE_INT_ARGB;
                 break;
         }
-        BufferedImage bi = new BufferedImage(pixels.length, pixels[0].length, biType);
+        BufferedImage bi = new BufferedImage(pixels[0].length, pixels.length, biType);
 
             // copy pixels
         for (int row = 0; row < pixels.length; row++) {
