@@ -125,4 +125,17 @@ public class Pixel {
   public void setAlpha(double a) {
     alpha = a;
   }
+
+  /**
+   * Clamps a value between an upper and lower bound.
+   */
+  private int clamp(int value, int lower, int upper) {
+    if (value <= lower) 
+      return lower; 
+      
+    if (value >= upper) 
+      return upper;
+    
+    return value;
+  }
 }
