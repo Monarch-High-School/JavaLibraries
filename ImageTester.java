@@ -1,4 +1,3 @@
-import Image.FORMAT;
 
 /***
  * ImageTester

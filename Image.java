@@ -87,7 +87,7 @@ public class Image {
     public Image(int w, int h, TYPE t, FORMAT f) {
         type = t;
         format = f;
-        pixels = new Pixels[w][h];
+        pixels = new Pixel[w][h];
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
                 pixels[row][col] = new Pixel(255, 255, 255, 1.0);
@@ -116,7 +116,7 @@ public class Image {
      * Modifying the return value of this array will modify the image.
      * @return 2D array of Pixel objects
      */
-    public Pixels[][] getPixels() {
+    public Pixel[][] getPixels() {
         return pixels;
     }
 
