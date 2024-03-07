@@ -63,9 +63,9 @@ public class Image {
                 // figure out the type of image
             int tp = bi.getType();
             if (tp == BufferedImage.TYPE_4BYTE_ABGR)
-                type = RGBA;
+                type = TYPE.RGBA;
             else
-                type = RGB;
+                type = TYPE.RGB;
 
                 // create pixel 2D Array
             int width = bi.getWidth();
