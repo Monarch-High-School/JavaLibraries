@@ -60,7 +60,13 @@ public class Image {
         try {
             File inFile = new File(filename);
             BufferedImage bi = ImageIO.read(inFile);
-            
+                // figure out the type of image
+            int tp = bi.getType();
+            if (tp == BufferedImage.TYPE_4BYTE_ABGR)
+                type = RGBA;
+            else
+                type = RGB;
+
                 // create pixel 2D Array
             int width = bi.getWidth();
             int height = bi.getHeight();
@@ -68,7 +74,14 @@ public class Image {
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
                         // buffered image uses getRGB(x, y)
-                    pixels[row][col] = new Pixel(bi.getRGB(col, row));
+                    switch(type) {
+                        case RGB:
+                            pixels[row][col] = new Pixel(bi.getRGB(col, row));
+                            break;
+                        case RGBA:
+                            pixels[row][col] = new Pixel(bi.getRGBA(col, row));
+                        break;
+                    }
                 }
             }
         }
