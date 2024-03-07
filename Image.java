@@ -163,7 +163,7 @@ public class Image {
                 biType = BufferedImage.TYPE_INT_ARGB;
                 break;
         }
-        BufferedImage bi = new BufferedImage(pixels.length, pixels[0].length, biType);
+        BufferedImage bi = new BufferedImage(pixels[0].length, pixels.length, biType);
 
             // copy pixels
         for (int row = 0; row < pixels.length; row++) {
