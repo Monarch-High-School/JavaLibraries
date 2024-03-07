@@ -10,6 +10,12 @@
 import java.util.Random;
 
  public class ImageTester {
+
+    /** Used for choosing color */
+    private enum COLOR {
+        RED, GREEN, BLUE
+    };
+
     public static void main(String args[]) {
 
             // Create a blank RGB image as a PNG
@@ -88,5 +94,12 @@ import java.util.Random;
                 pixels[row][col].setAlpha(alpha);
             }
         }
+    }
+
+    /**
+     * 
+     */
+    private static void removeChannel (int channel) {
+
     }
  }
