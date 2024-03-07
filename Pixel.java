@@ -48,15 +48,20 @@ public class Pixel {
 
   /**
    * Constructs a pixel with specified red, green, and blue values based on the provided binary integer.
-   * The alpha value is set to 1.0 by default.
+   * The alpha value is set to 1.0 if the alpha flag is false.
    *
    * @param rgb The binary integer representing RGB values.
+   * @param hasAlpha If an alpha component is present
    */
-  Pixel(int rgb) {
-    r = (rgb >> 16) & 0xFF;
-    g = (rgb >> 8) & 0xFF;
-    b = rgb & 0xFF;
-    a = 1.0;
+  Pixel(int rgb, boolean hasAlpha) {
+    red = (rgb >> 16) & 0xFF;
+    green = (rgb >> 8) & 0xFF;
+    blue = rgb & 0xFF;
+    alpha = 1.0;
+
+      // convert to a value between 0.0 and 1.0
+    if (hasAlpha) 
+      alpha = ((rgb >> 24) & 0xFF) / 255.0;
   }
 
   /**
@@ -84,6 +89,24 @@ public class Pixel {
    */
   public int getBlue() {
     return blue;
+  }
+
+  /**
+   * Gets a composite RGB value where red is the highest 8 bits, 
+   * followed by green and blue.
+   * @return
+   */
+  public int getRGB() {
+    return (red << 16) | (green << 8) | blue;
+  }
+
+  /**
+   * Gets a composite RGBA value where alpha is the highest 8 bits, 
+   * followed by red, green, and blue.
+   * @return
+   */
+  public int getRGBA() {
+    return ((int)(alpha*255) << 24) | (red << 16) | (green << 8) | blue;
   }
 
   /**
