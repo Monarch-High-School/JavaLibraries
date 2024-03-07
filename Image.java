@@ -139,7 +139,7 @@ public class Image {
         try {
                 // assum jpg is the standard file
             String fileFormat = "jpg";
-            if (format == PNG) 
+            if (format == FORMAT.PNG) 
                 fileFormat = "png";
 
             File outFile = new File(filename);
@@ -159,7 +159,8 @@ public class Image {
                 biType = BufferedImage.TYPE_INT_RGB;
                 break;
             case RGBA:
-                biType = BufferedImage.TYPE_INT_RGBA;
+            default:
+                biType = BufferedImage.TYPE_INT_ARGB;
                 break;
         }
         BufferedImage bi = new BufferedImage(pixels.length, pixels[0].length, biType);
