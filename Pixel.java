@@ -21,10 +21,10 @@ public class Pixel {
    * @param a The opacity (0.0-1.0).
    */
   Pixel(int r, int g, int b, double a) {
-    red = r;
-    green = g;
-    blue = b;
-    alpha = a;
+    red = clamp(r, 0, 255);
+    green = clamp(g, 0, 255);
+    blue = clamp(b, 0, 255);
+    alpha = clamp(a, 0, 1);
   }
 
   /**
@@ -35,9 +35,9 @@ public class Pixel {
    * @param b The amount of blue (0-255).
    */
   Pixel(int r, int g, int b) {
-    red = r;
-    green = g;
-    blue = b;
+    red = clamp(r, 0, 255);
+    green = clamp(g, 0, 255);
+    blue = clamp(b, 0, 255);
     alpha = 1.0;
   }
 
@@ -96,7 +96,7 @@ public class Pixel {
    * @param r The new red value (0-255).
    */
   public void setRed(int r) {
-    red = r;
+    red = clamp(r, 0, 255);
   }
 
   /**
@@ -105,7 +105,7 @@ public class Pixel {
    * @param g The new green value (0-255).
    */
   public void setGreen(int g) {
-    green = g;
+    green = clamp(g, 0, 255);
   }
 
   /**
@@ -114,7 +114,7 @@ public class Pixel {
    * @param b The new blue value (0-255).
    */
   public void setBlue(int b) {
-    blue = b;
+    blue = clamp(b, 0, 255);
   }
 
   /**
@@ -123,7 +123,7 @@ public class Pixel {
    * @param a The new alpha value (0.0-1.0).
    */
   public void setAlpha(double a) {
-    alpha = a;
+    alpha = clamp(a, 0.0, 1.0);
   }
 
   /**
@@ -132,10 +132,20 @@ public class Pixel {
   private int clamp(int value, int lower, int upper) {
     if (value <= lower) 
       return lower; 
-      
+
     if (value >= upper) 
       return upper;
     
+    return value;
+  }
+
+  private double clamp(double value, double lower, double upper) {
+    if (value <= lower)
+      return lower;
+
+    if (value >= upper) 
+      return upper;
+
     return value;
   }
 }
