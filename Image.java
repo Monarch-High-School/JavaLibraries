@@ -146,7 +146,7 @@ public class Image {
             ImageIO.write(pixelsToBufferedImage(), fileFormat, outFile);
         }
         catch (IOException e) {
-            System.err.println("Could not write image to file '" + filename + "'" + "because: " + e.getMessage());
+            System.err.println("Could not write image to file '" + filename + "'" + " because: " + e.getMessage());
         }
     }
 
