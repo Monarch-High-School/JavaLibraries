@@ -143,7 +143,7 @@ public class Image {
                 fileFormat = "png";
 
             File outFile = new File(filename);
-            ImageIO.write(pixelsToBufferedImage(), fileFormat, filename);
+            ImageIO.write(pixelsToBufferedImage(), fileFormat, outFile);
         }
         catch (IOException e) {
             System.err.println("Could not write image to file '" + filename + "'" + "because: " + e.getMessage());
