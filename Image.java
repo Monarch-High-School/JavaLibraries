@@ -33,7 +33,7 @@ public class Image {
     };
 
     /** 
-     * The format of the image. This will be determined by the 
+     * The format of the image. 
      */
     public static enum FORMAT {
         /**
@@ -60,6 +60,7 @@ public class Image {
         try {
             File inFile = new File(filename);
             BufferedImage bi = ImageIO.read(inFile);
+            
                 // create pixel 2D Array
             int width = bi.getWidth();
             int height = bi.getHeight();
