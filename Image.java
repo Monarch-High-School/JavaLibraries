@@ -63,9 +63,9 @@ public class Image {
                 // figure out the type of image
             int tp = bi.getType();
             if (tp == BufferedImage.TYPE_4BYTE_ABGR)
-                type = RGBA;
+                type = TYPE.valueOf("RGBA");
             else
-                type = RGB;
+                type = TYPE.valueOf("RGB");
 
                 // create pixel 2D Array
             int width = bi.getWidth();
@@ -76,10 +76,10 @@ public class Image {
                         // buffered image uses getRGB(x, y)
                     switch(type) {
                         case RGB:
-                            pixels[row][col] = new Pixel(bi.getRGB(col, row));
+                            pixels[row][col] = new Pixel(bi.getRGB(col, row),false);
                             break;
                         case RGBA:
-                            pixels[row][col] = new Pixel(bi.getRGBA(col, row));
+                            pixels[row][col] = new Pixel(bi.getRGB(col, row),true);
                         break;
                     }
                 }
