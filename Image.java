@@ -131,6 +131,13 @@ public class Image {
         return pixels;
     }
 
+    /**
+     * Returns the type of the image as a TYPE enum.
+     * @return The type of the image
+     */
+    public TYPE getType() {
+        return type;
+    }
 
     public void saveToFile(String filename) throws IOException {
         try {
