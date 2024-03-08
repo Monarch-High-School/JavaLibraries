@@ -162,7 +162,7 @@ public class Image {
                 break;
         }
         BufferedImage bi = new BufferedImage(pixels[0].length, pixels.length, biType);
-        boolean includeAlpha = type == RGBA;
+        boolean includeAlpha = (type == TYPE.RGBA);
 
             // copy pixels
         for (int row = 0; row < pixels.length; row++) {
