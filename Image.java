@@ -47,7 +47,6 @@ public class Image {
                 throw new IOException(filename + " does not exist!");
             }
             BufferedImage bi = ImageIO.read(inFile);
-   
                 // create pixel 2D Array
             int width = bi.getWidth();
             int height = bi.getHeight();

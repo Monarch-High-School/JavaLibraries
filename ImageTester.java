@@ -42,7 +42,6 @@ public class ImageTester {
             System.err.println("Could not write blank.jpg file because "+e.getMessage());
         }
         
-
         // create a new image with random pixel values as a PNG
         try {
             Image randomImagePNG = new Image(800, 600);
@@ -78,11 +77,19 @@ public class ImageTester {
         }
 
             // read in existing JPG image and make a copy
-
-            // read in existing PNG image and brighten all channels by 20 - save to testImageBright
-
-            // read in existing JPG image and brighten all channels by 20 - save to testImageBright
-
+        
+            // read in existing PNG image and bright all channels by 100 - save to testImageBright
+        Image brightenPNG = new Image("testImage.png");
+        pixels = brightenPNG.getPixels();
+        adjustBrightness(pixels, 100);
+        brightenPNG.saveToFile("testImageBright.png");
+        
+            // read in existing JPG image and bright all channels by 100 - save to testImageBright
+        Image brightenJPG = new Image("testImage.jpg");
+        pixels = brightenJPG.getPixels();
+        adjustBrightness(pixels, 100);
+        brightenJPG.saveToFile("testImageBright.jpg");
+      
             // read in existing PNG image and 0 out red - save to testImageNoRed
         try {
             Image testImageNoRed = new Image(path + "testImage.png");
@@ -159,5 +166,19 @@ public class ImageTester {
                 pixels[row][col].setRGB(pixels[row][col].getRGB() & mask);
             }
         }
+    }
+
+    /**
+     * Increases or decreases the brightness of a 2D pixel array by a specified amount.
+     * @param adjustment the amount to adjust each pixel's brightness by
+     */
+    private static void adjustBrightness(Pixel [][] pixels, int adjustment) {
+      for (int i = 0; i < pixels.length; i++) {
+        for (int j = 0; j < pixels[i].length; j++) {
+          pixels[i][j].setRed(pixels[i][j].getRed() + adjustment);
+          pixels[i][j].setGreen(pixels[i][j].getGreen() + adjustment);
+          pixels[i][j].setBlue(pixels[i][j].getBlue() + adjustment);  
+        }
+      }
     }
  }
