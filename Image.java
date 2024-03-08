@@ -55,30 +55,35 @@ public class Image {
     /** 
      * Constructor that creates an image from a file.
      * @param String filename The filename of an image to load
+     * @throws IOException when the file does not exist
      */
-    public Image(String filename) {
+    public Image(String filename) throws IOException {
         try {
             File inFile = new File(filename);
+            if (! inFile.exists()) {
+                throw new IOException(filename + " does not exist!");
+            }
             BufferedImage bi = ImageIO.read(inFile);
                 // figure out the type of image
-            int tp = bi.getType();
-            if (tp == BufferedImage.TYPE_4BYTE_ABGR)
+            type = TYPE.RGB;
+            boolean hasAlpha = false;
+            if ( bi.getType() == BufferedImage.TYPE_4BYTE_ABGR) {
                 type = TYPE.RGBA;
-            else
-                type = TYPE.RGB;
-
+                hasAlpha = true;
+            }
+   
                 // create pixel 2D Array
             int width = bi.getWidth();
             int height = bi.getHeight();
             pixels = new Pixel[height][width];
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                    pixels[row][col] = new Pixel(bi.getRGB(col, row));
+                    pixels[row][col] = new Pixel(bi.getRGB(col, row), hasAlpha);
                 }
             }
         }
         catch(IOException e) {
-            System.err.println("Could not read in file '"+filename+"' because: "+e.getMessage());
+            throw e;
         }
     }
 
@@ -127,7 +132,7 @@ public class Image {
     }
 
 
-    public void saveToFile(String filename) {
+    public void saveToFile(String filename) throws IOException {
         try {
                 // assum jpg is the standard file
             String fileFormat = "jpg";
@@ -135,10 +140,11 @@ public class Image {
                 fileFormat = "png";
 
             File outFile = new File(filename);
+            
             ImageIO.write(pixelsToBufferedImage(), fileFormat, outFile);
         }
         catch (IOException e) {
-            System.err.println("Could not write image to file '" + filename + "'" + " because: " + e.getMessage());
+            throw e;
         }
     }
 
@@ -156,12 +162,13 @@ public class Image {
                 break;
         }
         BufferedImage bi = new BufferedImage(pixels[0].length, pixels.length, biType);
+        boolean includeAlpha = type == RGBA;
 
             // copy pixels
         for (int row = 0; row < pixels.length; row++) {
             for (int col = 0; col < pixels[row].length; col++) {
                     // set RBG uses x,y
-                bi.setRGB(col, row, pixels[row][col].getRGB());
+                bi.setRGB(col, row, pixels[row][col].getRGB(includeAlpha));
             }
         }
         return bi;
