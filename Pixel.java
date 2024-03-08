@@ -61,7 +61,7 @@ public class Pixel {
 
       // convert to a value between 0.0 and 1.0
     if (hasAlpha) 
-      alpha = ((rgb >> 24) & 0xFF) / 255.0;
+      alpha = ((rgb >>> 24) & 0xFF) / 255.0;
   }
 
   /**
@@ -92,21 +92,17 @@ public class Pixel {
   }
 
   /**
-   * Gets a composite RGB value where red is the highest 8 bits, 
-   * followed by green and blue.
-   * @return
+   * Gets a composite RGB/RGBA value.
+   * @param includeAlpha whether to include the alpha channel in the composite.
+   * @return Composite RGB/RGBA integer
    */
-  public int getRGB() {
-    return (red << 16) | (green << 8) | blue;
-  }
-
-  /**
-   * Gets a composite RGBA value where alpha is the highest 8 bits, 
-   * followed by red, green, and blue.
-   * @return
-   */
-  public int getRGBA() {
-    return ((int)(alpha*255) << 24) | (red << 16) | (green << 8) | blue;
+  public int getRGB(boolean includeAlpha) {
+    int px = (red << 16) | (green << 8) | blue;
+    
+    if (includeAlpha)
+      px |= ((int)(alpha*255) << 24);
+    
+    return px; 
   }
 
   /**
@@ -152,6 +148,23 @@ public class Pixel {
    */
   public void setAlpha(double a) {
     alpha = clamp(a, 0.0, 1.0);
+  }
+
+  /**
+   * Sets the RGB values of the pixel using a single composite integer.
+   *
+   * @param rgb The composite RGB value
+   * @param hasAlpha whether the image has an alpha channel
+   */
+  public void setRGB(int rgb, boolean hasAlpha) {
+    red = (rgb >> 16) & 0xFF;
+    green = (rgb >> 8) & 0xFF;
+    blue = rgb & 0xFF;
+    alpha = 1.0;
+
+      // convert to a value between 0.0 and 1.0
+    if (hasAlpha) 
+      alpha = ((rgb >> 24) & 0xFF) / 255.0;
   }
 
   /**
