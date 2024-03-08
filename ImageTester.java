@@ -79,16 +79,30 @@ public class ImageTester {
             // read in existing JPG image and make a copy
         
             // read in existing PNG image and bright all channels by 100 - save to testImageBright
-        Image brightenPNG = new Image("testImage.png");
-        pixels = brightenPNG.getPixels();
-        adjustBrightness(pixels, 100);
-        brightenPNG.saveToFile("testImageBright.png");
+        try {
+            Image brightenPNG = new Image(path+"testImage.png");
+            pixels = brightenPNG.getPixels();
+            adjustBrightness(pixels, 100);
+            brightenPNG.saveToFile(path + "testImageBright.png", Image.FORMAT.PNG);
+            System.out.println("Successfully processed existing PNG file brighten.");
+    
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageBright.png because " + e.getMessage());
+        }
         
             // read in existing JPG image and bright all channels by 100 - save to testImageBright
-        Image brightenJPG = new Image("testImage.jpg");
-        pixels = brightenJPG.getPixels();
-        adjustBrightness(pixels, 100);
-        brightenJPG.saveToFile("testImageBright.jpg");
+        try {
+            Image brightenJPG = new Image(path + "testImage.jpg");
+            pixels = brightenJPG.getPixels();
+            adjustBrightness(pixels, 100);
+            brightenJPG.saveToFile(path + "testImageBright.jpg", Image.FORMAT.JPG);
+            System.out.println("Successfully processed existing JPG file brighten.");
+
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageBright.jpg because " + e.getMessage());
+        }
       
             // read in existing PNG image and 0 out red - save to testImageNoRed
         try {

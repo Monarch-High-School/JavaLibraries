@@ -8,3 +8,11 @@ Image$FORMAT.class
 Image$TYPE.class
 .DS_Store
 testoutput/.DS_STORE
+testoutput/blank.jpg
+testoutput/blank.ong
+testoutput/random.jpg
+testoutput/random.png
+testoutput/testImageBright.jpg
+testoutput/testImageBright.png
+testoutput/testImageCopy.png
+testoutput/testImageNoRed.png
