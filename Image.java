@@ -18,20 +18,6 @@
  import java.io.*;
 
 public class Image {
-        /** 
-         * The type of image
-         */
-    public static enum TYPE {
-        /** 
-         * Full color, no transparency 
-         */
-        RGB, 
-        /**
-         * Full color, transparency layer
-         */
-        RGBA
-    };
-
     /** 
      * The format of the image. 
      */
@@ -44,49 +30,35 @@ public class Image {
          * PNG
          */
         PNG
-    }
+    };
 
         /** The images pixel data **/
     private Pixel[][] pixels;
-    private TYPE type;
-    private FORMAT format;
-
 
     /** 
      * Constructor that creates an image from a file.
      * @param String filename The filename of an image to load
+     * @throws IOException when the file does not exist
      */
-    public Image(String filename) {
+    public Image(String filename) throws IOException {
         try {
             File inFile = new File(filename);
+            if (! inFile.exists()) {
+                throw new IOException(filename + " does not exist!");
+            }
             BufferedImage bi = ImageIO.read(inFile);
-                // figure out the type of image
-            int tp = bi.getType();
-            if (tp == BufferedImage.TYPE_4BYTE_ABGR)
-                type = TYPE.valueOf("RGBA");
-            else
-                type = TYPE.valueOf("RGB");
-
                 // create pixel 2D Array
             int width = bi.getWidth();
             int height = bi.getHeight();
             pixels = new Pixel[height][width];
             for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
-                        // buffered image uses getRGB(x, y)
-                    switch(type) {
-                        case RGB:
-                            pixels[row][col] = new Pixel(bi.getRGB(col, row),false);
-                            break;
-                        case RGBA:
-                            pixels[row][col] = new Pixel(bi.getRGB(col, row),true);
-                        break;
-                    }
+                    pixels[row][col] = new Pixel(bi.getRGB(col, row));
                 }
             }
         }
         catch(IOException e) {
-            System.err.println("Could not read in file '"+filename+"' because: "+e.getMessage());
+            throw e;
         }
     }
 
@@ -95,34 +67,22 @@ public class Image {
      * The default color of the image will be white.
      * @param w The width of the image in pixels
      * @param h The height of the image in pixels
-     * @param t The type of image
-     * @param f The format of the image
      */
-    public Image(int w, int h, TYPE t, FORMAT f) {
-        type = t;
-        format = f;
+    public Image(int w, int h) {
         pixels = new Pixel[h][w];
         for (int row = 0; row < h; row++) {
             for (int col = 0; col < w; col++) {
-                pixels[row][col] = new Pixel(255, 255, 255, 1.0);
+                pixels[row][col] = new Pixel(255, 255, 255);
             }
         }
     }
 
     /**
      * Constructor that creates an image from an array of pixels.
-     * There is no mechanism that checks whether the type actually matches the pixels. 
-     * If the format is RBG, any alpha pixels will be ignored. Likewise, if an 
-     * image is specified as RGBA, and there is no alpha component, it will assumed to be
-     * fully opaque.
      * @param pxls The 2D array of pixels
-     * @param t The type of the image
-     * @param f The format of the image
      */
-    public Image(Pixel [][] pxls, TYPE t, FORMAT f) {
+    public Image(Pixel [][] pxls) {
         pixels = pxls;
-        type = t;
-        format = f;
     }
 
     /**
@@ -134,8 +94,14 @@ public class Image {
         return pixels;
     }
 
+    /**
+     * Writes the current pixel array to file.
+     * @param filename The path to outfile
+     * @param format Whether to write in JPG or PNG
+     * @throws IOException If there is an issue writing the file
+     */
 
-    public void saveToFile(String filename) {
+    public void saveToFile(String filename, FORMAT format) throws IOException {
         try {
                 // assum jpg is the standard file
             String fileFormat = "jpg";
@@ -146,25 +112,18 @@ public class Image {
             ImageIO.write(pixelsToBufferedImage(), fileFormat, outFile);
         }
         catch (IOException e) {
-            System.err.println("Could not write image to file '" + filename + "'" + " because: " + e.getMessage());
+            throw e;
         }
     }
 
-
+    /**
+     * Copes the current pixel data to a BufferedImage. 
+     * Assume format is RGB - no alpha channel.
+     * @return A buffered image
+     */
     private BufferedImage pixelsToBufferedImage() {
             // allocate buffered image
-        int biType;
-        switch (type) {
-            case RGB:
-                biType = BufferedImage.TYPE_INT_RGB;
-                break;
-            case RGBA:
-            default:
-                biType = BufferedImage.TYPE_INT_ARGB;
-                break;
-        }
-        BufferedImage bi = new BufferedImage(pixels[0].length, pixels.length, biType);
-
+        BufferedImage bi = new BufferedImage(pixels[0].length, pixels.length, BufferedImage.TYPE_INT_RGB);
             // copy pixels
         for (int row = 0; row < pixels.length; row++) {
             for (int col = 0; col < pixels[row].length; col++) {
