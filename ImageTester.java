@@ -212,8 +212,29 @@ public class ImageTester {
             // read in existing JPG image and flip horizontal  - save to testImageFlipHorizontal
 
             // read in existing PNG image and flip vertical - save to testImageFlipVertical
+        try {
+            Image testImageFlipVerticalPNG = new Image(path + "testImage.png");
+            pixels = testImageFlipVerticalPNG.getPixels();
+            flipVertical(pixels);
+            testImageFlipVerticalPNG.saveToFile(path + "testImageFlipVertical.png", Image.FORMAT.PNG);    
+            System.out.println("Successfully processed existing PNG file flip vertical.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageFlipVertical.png because " + e.getMessage());
+        }
 
             // read in existing JPG image and flip vertical - save to testImageFlipVertical
+        try {
+            Image testImageFlipVerticalJPG = new Image(path + "testImage.jpg");
+            pixels = testImageFlipVerticalJPG.getPixels();
+            flipVertical(pixels);
+            testImageFlipVerticalJPG.saveToFile(path + "testImageFlipVertical.jpg", Image.FORMAT.JPG);    
+            System.out.println("Successfully processed existing JPG file flip vertical.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageFlipVerticalg.jpg because " + e.getMessage());
+        }
+      
     }
 
     /**
@@ -285,6 +306,19 @@ public class ImageTester {
           pixels[i][j].setGreen(avg);
           pixels[i][j].setBlue(avg);  
         }
+      }
+    }
+
+    /**
+     * Creates a vertically flipped copy of a 2D pixel array.
+     * @param pixels 2D array of Pixel objects
+     */
+    private static void flipVertical(Pixel[][] pixels) {
+      //Pixel [][] flipped = new Pixel[pixels.length][pixels[0].length];
+      for (int i = 0; i < pixels.length / 2; i++) {
+        Pixel[] tmp = pixels[i];
+        pixels[i] = pixels[pixels.length - i - 1];
+        pixels[pixels.length - i - 1] = tmp;
       }
     }
  }

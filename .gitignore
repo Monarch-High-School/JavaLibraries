@@ -26,3 +26,5 @@ testoutput/testImageNoBlue.png
 testoutput/testImageNoBlue.jpg
 testoutput/testImageGrayscale.png
 testoutput/testImageGrayscale.jpg
+testoutput/testImageFlipVertical.png
+testoutput/testImageFlipVertical.jpg
