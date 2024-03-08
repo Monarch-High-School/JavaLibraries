@@ -103,7 +103,7 @@ public class Image {
 
     public void saveToFile(String filename, FORMAT format) throws IOException {
         try {
-                // assum jpg is the standard file
+                // assume jpg is the standard file
             String fileFormat = "jpg";
             if (format == FORMAT.PNG) 
                 fileFormat = "png";

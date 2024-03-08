@@ -2,6 +2,8 @@ Pixel.class
 .replit
 replit.nix
 ImageTester.class
+ImageTester$1.class
+ImageTester$COLOR.class
 Image.class
 Image$1.class
 Image$FORMAT.class
@@ -15,4 +17,10 @@ testoutput/random.png
 testoutput/testImageBright.jpg
 testoutput/testImageBright.png
 testoutput/testImageCopy.png
+testoutput/testImageCopy.jpg
 testoutput/testImageNoRed.png
+testoutput/testImageNoRed.jpg
+testoutput/testImageNoGreen.png
+testoutput/testImageNoGreen.jpg
+testoutput/testImageNoBlue.png
+testoutput/testImageNoBlue.jpg

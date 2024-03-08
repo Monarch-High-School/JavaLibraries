@@ -77,7 +77,14 @@ public class ImageTester {
         }
 
             // read in existing JPG image and make a copy
-        
+        try {
+            Image testImageCopyJPG = new Image(path + "testImage.jpg");
+            testImageCopyJPG.saveToFile(path + "testImageCopy.jpg", Image.FORMAT.JPG);    
+            System.out.println("Successfully processed existing JPG file copy.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageCopy.jpg because " + e.getMessage());
+        }
             // read in existing PNG image and bright all channels by 100 - save to testImageBright
         try {
             Image brightenPNG = new Image(path+"testImage.png");
@@ -106,26 +113,75 @@ public class ImageTester {
       
             // read in existing PNG image and 0 out red - save to testImageNoRed
         try {
-            Image testImageNoRed = new Image(path + "testImage.png");
-            pixels = testImageNoRed.getPixels();
+            Image testImageNoRedPNG = new Image(path + "testImage.png");
+            pixels = testImageNoRedPNG.getPixels();
             removeChannel(pixels, COLOR.RED);
-            testImageNoRed.saveToFile(path + "testImageNoRed.png", Image.FORMAT.PNG);    
+            testImageNoRedPNG.saveToFile(path + "testImageNoRed.png", Image.FORMAT.PNG);    
             System.out.println("Successfully processed existing PNG file remove red channel.");
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoRed.png because " + e.getMessage());
         }
-   
 
             // read in existing JPG image and 0 out red - save to testImageNoRed
-
+        try {
+            Image testImageNoRedJPG = new Image(path + "testImage.jpg");
+            pixels = testImageNoRedJPG.getPixels();
+            removeChannel(pixels, COLOR.RED);
+            testImageNoRedJPG.saveToFile(path + "testImageNoRed.jpg", Image.FORMAT.JPG);    
+            System.out.println("Successfully processed existing JPG file remove red channel.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageNoRed.jpg because " + e.getMessage());
+        }
+      
             // read in existing PNG image and 0 out green - save to testImageNoGreen
+        try {
+            Image testImageNoGreenPNG = new Image(path + "testImage.png");
+            pixels = testImageNoGreenPNG.getPixels();
+            removeChannel(pixels, COLOR.GREEN);
+            testImageNoGreenPNG.saveToFile(path + "testImageNoGreen.png", Image.FORMAT.PNG);    
+            System.out.println("Successfully processed existing PNG file remove green channel.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageNoGreen.png because " + e.getMessage());
+        }
 
             // read in existing JPG image and 0 out green - save to testImageNoGreen
-
+        try {
+            Image testImageNoGreenJPG = new Image(path + "testImage.jpg");
+            pixels = testImageNoGreenJPG.getPixels();
+            removeChannel(pixels, COLOR.GREEN);
+            testImageNoGreenJPG.saveToFile(path + "testImageNoGreen.jpg", Image.FORMAT.JPG);    
+            System.out.println("Successfully processed existing JPG file remove green channel.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageNoGreen.jpg because " + e.getMessage());
+        }
+      
             // read in existing PNG image and 0 out blue - save to testImageNoBlue
-
+        try {
+            Image testImageNoBluePNG = new Image(path + "testImage.png");
+            pixels = testImageNoBluePNG.getPixels();
+            removeChannel(pixels, COLOR.BLUE);
+            testImageNoBluePNG.saveToFile(path + "testImageNoBlue.png", Image.FORMAT.PNG);    
+            System.out.println("Successfully processed existing PNG file remove blue channel.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageNoBlue.png because " + e.getMessage());
+        }
+      
             // read in existing JPG image and 0 out blue - save to testImageNoBlue
+        try {
+            Image testImageNoBlueJPG = new Image(path + "testImage.jpg");
+            pixels = testImageNoBlueJPG.getPixels();
+            removeChannel(pixels, COLOR.BLUE);
+            testImageNoBlueJPG.saveToFile(path + "testImageNoBlue.jpg", Image.FORMAT.JPG);    
+            System.out.println("Successfully processed existing JPG file remove blue channel.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageNoBlue.jpg because " + e.getMessage());
+        }
 
             // read in existing PNG image and make grayscale - save to testImageGrayscale
 
