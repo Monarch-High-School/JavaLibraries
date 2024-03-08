@@ -24,3 +24,5 @@ testoutput/testImageNoGreen.png
 testoutput/testImageNoGreen.jpg
 testoutput/testImageNoBlue.png
 testoutput/testImageNoBlue.jpg
+testoutput/testImageGrayscale.png
+testoutput/testImageGrayscale.jpg
