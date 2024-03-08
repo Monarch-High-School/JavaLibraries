@@ -20,7 +20,7 @@ import java.util.Random;
         Image blankImageJPG = new Image(800, 600, Image.TYPE.RGB, Image.FORMAT.JPG);
         blankImageJPG.saveToFile("blank.jpg");
 
-        // create a new image with random pixel values as a PNG
+            // create a new image with random pixel values as a PNG
         Image randomImagePNG = new Image(800, 600, Image.TYPE.RGB, Image.FORMAT.PNG);
         Pixel[][] pixels = randomImagePNG.getPixels();
         populateRandom(pixels, 1.0);
@@ -44,17 +44,18 @@ import java.util.Random;
         populateRandom(pixels, 0.1);
         randomImageJPG.saveToFile("randomWithAlpha.jpg");
         
-            // read in existing PNG image and bright all channels by 20 - save to testImageBright
-        Image brightenJPG = new Image(800, 600, Image.TYPE.RGB, Image.FORMAT.JPG);
-        pixels = brightenJPG.getPixels();
-        adjustBrightness(pixels, 20);
-        brightenJPG.saveToFile("testImageBright.jpg");
-        
-            // read in existing JPG image and bright all channels by 20 - save to testImageBright
-        Image brightenPNG = new Image(800, 600, Image.TYPE.RGB, Image.FORMAT.PNG);
+            // read in existing PNG image and bright all channels by 100 - save to testImageBright
+        Image brightenPNG = new Image("testImage.png");
         pixels = brightenPNG.getPixels();
-        adjustBrightness(pixels, 20);
+        adjustBrightness(pixels, 100);
         brightenPNG.saveToFile("testImageBright.png");
+        
+            // read in existing JPG image and bright all channels by 100 - save to testImageBright
+        Image brightenJPG = new Image("testImage.jpg");
+        pixels = brightenJPG.getPixels();
+        adjustBrightness(pixels, 100);
+        brightenJPG.saveToFile("testImageBright.jpg");
+      
             // read in existing PNG image and 0 out red - save to testImageNoRed
 
             // read in existing JPG image and 0 out red - save to testImageNoRed
@@ -106,8 +107,7 @@ import java.util.Random;
         for (int j = 0; j < pixels[i].length; j++) {
           pixels[i][j].setRed(pixels[i][j].getRed() + adjustment);
           pixels[i][j].setGreen(pixels[i][j].getGreen() + adjustment);
-            pixels[i][j].setBlue(pixels[i][j].getBlue() + adjustment);
-            ;
+          pixels[i][j].setBlue(pixels[i][j].getBlue() + adjustment);  
         }
       }
     }
