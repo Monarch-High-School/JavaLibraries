@@ -28,3 +28,5 @@ testoutput/testImageGrayscale.png
 testoutput/testImageGrayscale.jpg
 testoutput/testImageFlipVertical.png
 testoutput/testImageFlipVertical.jpg
+testoutput/testImageFlipHorizontal.png
+testoutput/testImageFlipHorizontal.jpg

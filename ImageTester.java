@@ -42,7 +42,7 @@ public class ImageTester {
             System.err.println("Could not write blank.jpg file because "+e.getMessage());
         }
         
-        // create a new image with random pixel values as a PNG
+            // create a new image with random pixel values as a PNG
         try {
             Image randomImagePNG = new Image(800, 600);
             pixels = randomImagePNG.getPixels();
@@ -208,9 +208,29 @@ public class ImageTester {
         }
             
             // read in existing PNG image and flip horizontal - save to testImageFlipHorizontal
+        try {
+            Image testImageFlipHorizontalPNG = new Image(path + "testImage.png");
+            pixels = testImageFlipHorizontalPNG.getPixels();
+            flipHorizontal(pixels);
+            testImageFlipHorizontalPNG.saveToFile(path + "testImageFlipHorizontal.png", Image.FORMAT.PNG);    
+            System.out.println("Successfully processed existing PNG file flip horizontal.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageFlipHorizontal.png because " + e.getMessage());
+        }
 
             // read in existing JPG image and flip horizontal  - save to testImageFlipHorizontal
-
+        try {
+            Image testImageFlipHorizontalJPG = new Image(path + "testImage.jpg");
+            pixels = testImageFlipHorizontalJPG.getPixels();
+            flipHorizontal(pixels);
+            testImageFlipHorizontalJPG.saveToFile(path + "testImageFlipHorizontal.jpg", Image.FORMAT.JPG);    
+            System.out.println("Successfully processed existing JPG file flip horizontal.");
+        }
+        catch (IOException e) {
+            System.err.println("Couldn't process testImageFlipHorizontal.jpg because " + e.getMessage());
+        }
+      
             // read in existing PNG image and flip vertical - save to testImageFlipVertical
         try {
             Image testImageFlipVerticalPNG = new Image(path + "testImage.png");
@@ -232,7 +252,7 @@ public class ImageTester {
             System.out.println("Successfully processed existing JPG file flip vertical.");
         }
         catch (IOException e) {
-            System.err.println("Couldn't process testImageFlipVerticalg.jpg because " + e.getMessage());
+            System.err.println("Couldn't process testImageFlipVertical.jpg because " + e.getMessage());
         }
       
     }
@@ -310,7 +330,7 @@ public class ImageTester {
     }
 
     /**
-     * Creates a vertically flipped copy of a 2D pixel array.
+     * Vertically flips a 2D pixel array.
      * @param pixels 2D array of Pixel objects
      */
     private static void flipVertical(Pixel[][] pixels) {
@@ -319,6 +339,21 @@ public class ImageTester {
         Pixel[] tmp = pixels[i];
         pixels[i] = pixels[pixels.length - i - 1];
         pixels[pixels.length - i - 1] = tmp;
+      }
+    }
+
+    /**
+     * Horizontally flips a 2D pixel array.
+     * @param pixels 2D array of Pixel objects
+     */
+    private static void flipHorizontal(Pixel[][] pixels) {
+      //Pixel [][] flipped = new Pixel[pixels.length][pixels[0].length];
+      for (int i = 0; i < pixels.length; i++) {
+        for (int j = 0; j < pixels[i].length / 2; j++) {
+          Pixel tmp = pixels[i][j];
+          pixels[i][j] = pixels[i][pixels[i].length - j - 1];
+          pixels[i][pixels[i].length - j - 1] = tmp;
+        }
       }
     }
  }
