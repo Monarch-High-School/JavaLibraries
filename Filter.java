@@ -15,7 +15,7 @@ public class Filter {
   }
 
   public String getApplyString() {
-    return "Applying " + name + "filter.";
+    return "Applying " + name + " filter.";
   }
   
 }
