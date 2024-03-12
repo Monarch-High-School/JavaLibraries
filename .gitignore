@@ -8,6 +8,7 @@ Image.class
 Image$1.class
 Image$FORMAT.class
 Image$TYPE.class
+Filter.class
 .DS_Store
 testoutput/.DS_STORE
 testoutput/blank.jpg
