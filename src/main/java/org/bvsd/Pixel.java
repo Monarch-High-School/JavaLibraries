@@ -6,6 +6,8 @@
  * @version 1.0
  */
 
+package org.bvsd;
+
 public class Pixel {
 
   /** Integer value from 0 to 255 representing the amount of red in a pixel */

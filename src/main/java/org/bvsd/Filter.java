@@ -8,6 +8,8 @@
  * @version 1.0
  */
 
+package org.bvsd;
+
 public class Filter {
 
   /**  The name of the filter **/

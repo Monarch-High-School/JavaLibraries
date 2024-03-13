@@ -10,9 +10,11 @@
  * @version 1.0
  */
 
- import java.awt.image.BufferedImage;
- import javax.imageio.*;
- import java.io.*;
+package org.bvsd;
+
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import java.io.*;
 
 public class Image {
     /** 
