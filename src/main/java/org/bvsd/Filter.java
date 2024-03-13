@@ -49,7 +49,7 @@ public class Filter {
    * @return The String "Applying {name} filter" where {name} is the name of the filter.
    */
   public String getApplyString() {
-    return "Applying " + name + " filter.";
+    return "Applied " + name + " filter.";
   }
   
 }

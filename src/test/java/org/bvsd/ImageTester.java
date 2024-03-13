@@ -24,6 +24,9 @@ public class ImageTester {
         String path = "src/test/resources/";
         Pixel[][] pixels;
 
+        // Declare all filters
+        Grayscale grayscale = new Grayscale();
+
             // Create a blank RGB image as a PNG
         try {
             Image blankImagePNG = new Image(800, 600);
@@ -188,10 +191,9 @@ public class ImageTester {
             // read in existing PNG image and make grayscale - save to testImageGrayscale
         try {
             Image testImageGrayscalePNG = new Image(path + "testImage.png");
-            pixels = testImageGrayscalePNG.getPixels();
-            grayscale(pixels);
+            grayscale.apply(testImageGrayscalePNG);
             testImageGrayscalePNG.saveToFile(path + "testImageGrayscale.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file grayscale.");
+            System.out.println(grayscale.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageGrayscale.png because " + e.getMessage());
@@ -200,10 +202,9 @@ public class ImageTester {
             // read in existing JPG image and make grayscale - save to testImageGrayscale
         try {
             Image testImageGrayscaleJPG = new Image(path + "testImage.jpg");
-            pixels = testImageGrayscaleJPG.getPixels();
-            grayscale(pixels);
+            grayscale.apply(testImageGrayscaleJPG);
             testImageGrayscaleJPG.saveToFile(path + "testImageGrayscale.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file grayscale.");
+            System.out.println(grayscale.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageGrayscale.jpg because " + e.getMessage());
@@ -312,21 +313,6 @@ public class ImageTester {
           pixels[i][j].setRed(pixels[i][j].getRed() + adjustment);
           pixels[i][j].setGreen(pixels[i][j].getGreen() + adjustment);
           pixels[i][j].setBlue(pixels[i][j].getBlue() + adjustment);  
-        }
-      }
-    }
-
-    /**
-     * Creates a grayscale copy of a 2D pixel array by calcualting the average of each color in a pixel.
-     * @param pixels 2D array of Pixel objects
-     */
-    private static void grayscale(Pixel [][] pixels) {
-      for (int i = 0; i < pixels.length; i++) {
-        for (int j = 0; j < pixels[i].length; j++) {
-          int avg = (pixels[i][j].getRed() + pixels[i][j].getGreen() + pixels[i][j].getBlue()) / 3;
-          pixels[i][j].setRed(avg);
-          pixels[i][j].setGreen(avg);
-          pixels[i][j].setBlue(avg);  
         }
       }
     }
