@@ -1,3 +1,10 @@
+
+package org.bvsd;
+
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import java.io.*;
+
 /**
  * The Image class provides an easy-to-use interface for introductory Java students to
  * explore image processing without having to learn the intricacies of the BufferedImage
@@ -9,13 +16,6 @@
  * @author B. Willcutt, Monarch High School
  * @version 1.0
  */
-
-package org.bvsd;
-
-import java.awt.image.BufferedImage;
-import javax.imageio.*;
-import java.io.*;
-
 public class Image {
     /** 
      * The format of the image. 
@@ -37,7 +37,7 @@ public class Image {
     /** 
      * Constructor that creates an image from a file.
      * 
-     * @param String filename The filename of an image to load
+     * @param filename The filename of an image to load
      * @throws IOException when the file does not exist
      */
     public Image(String filename) throws IOException {

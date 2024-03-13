@@ -1,22 +1,21 @@
+package org.bvsd;
+
 /**
  * Encapsulates data and methods for apply effects to an Image object. 
  * This class is intended to be subclassed with the apply method overridden.
  * Any additional parameters for the filter to do its job should be added. The constructor
  * should be overridden, but this constructor should also be called to set the Filter's name.
  * @author B. Willcutt
- * @uathor J. Cihlar
+ * @author J. Cihlar
  * @version 1.0
  */
-
-package org.bvsd;
-
 public class Filter {
 
   /**  The name of the filter **/
   private String name;
 
   /**
-   * Default constructor
+   * Constructor
    * 
    * @param n The name of the Filter
    */
