@@ -4,12 +4,12 @@ import org.bvsd.*;
  * Grayscale filter class that converts an image to grayscale.
  * Inherits from the Filter class.
  */
-public class Grayscale extends Filter {
+public class GrayscaleFilter extends Filter {
 
   /**
    * Constructs a Grayscale filter object.
    */
-  public Grayscale() {
+  public GrayscaleFilter() {
     super("Grayscale");
   }
 

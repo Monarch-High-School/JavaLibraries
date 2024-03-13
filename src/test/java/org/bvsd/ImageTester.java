@@ -25,7 +25,7 @@ public class ImageTester {
         Pixel[][] pixels;
 
         // Declare all filters
-        Grayscale grayscale = new Grayscale();
+        GrayscaleFilter grayscale = new GrayscaleFilter();
 
             // Create a blank RGB image as a PNG
         try {
