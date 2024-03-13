@@ -1,5 +1,11 @@
+
+package org.bvsd;
+
+import java.awt.image.BufferedImage;
+import javax.imageio.*;
+import java.io.*;
+
 /**
- * Image
  * The Image class provides an easy-to-use interface for introductory Java students to
  * explore image processing without having to learn the intricacies of the BufferedImage
  * class. It depends on the related Pixel class.
@@ -9,14 +15,7 @@
  * @author J. Cihlar, Monarch High School
  * @author B. Willcutt, Monarch High School
  * @version 1.0
- * @since 1.0
- * 
  */
-
- import java.awt.image.BufferedImage;
- import javax.imageio.*;
- import java.io.*;
-
 public class Image {
     /** 
      * The format of the image. 
@@ -37,7 +36,8 @@ public class Image {
 
     /** 
      * Constructor that creates an image from a file.
-     * @param String filename The filename of an image to load
+     * 
+     * @param filename The filename of an image to load
      * @throws IOException when the file does not exist
      */
     public Image(String filename) throws IOException {
@@ -65,6 +65,7 @@ public class Image {
     /**
      * Constructor that creates a blank grid of pixels given a width, height, and type.
      * The default color of the image will be white.
+     * 
      * @param w The width of the image in pixels
      * @param h The height of the image in pixels
      */
@@ -79,6 +80,7 @@ public class Image {
 
     /**
      * Constructor that creates an image from an array of pixels.
+     * 
      * @param pxls The 2D array of pixels
      */
     public Image(Pixel [][] pxls) {
@@ -88,6 +90,7 @@ public class Image {
     /**
      * Gets the pixel data for the image as a reference.
      * Modifying the return value of this array will modify the image.
+     * 
      * @return 2D array of Pixel objects
      */
     public Pixel[][] getPixels() {
@@ -96,6 +99,7 @@ public class Image {
 
     /**
      * Writes the current pixel array to file.
+     * 
      * @param filename The path to outfile
      * @param format Whether to write in JPG or PNG
      * @throws IOException If there is an issue writing the file
@@ -119,6 +123,7 @@ public class Image {
     /**
      * Copes the current pixel data to a BufferedImage. 
      * Assume format is RGB - no alpha channel.
+     * 
      * @return A buffered image
      */
     private BufferedImage pixelsToBufferedImage() {

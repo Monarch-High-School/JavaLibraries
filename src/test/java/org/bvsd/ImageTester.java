@@ -7,6 +7,8 @@
  * @version 1.0
  */
 
+import org.bvsd.*;
+
 import java.util.Random;
 import java.io.IOException;
 
@@ -19,7 +21,7 @@ public class ImageTester {
 
     public static void main(String args[]) {
 
-        String path = "testoutput/";
+        String path = "src/test/resources/";
         Pixel[][] pixels;
 
             // Create a blank RGB image as a PNG

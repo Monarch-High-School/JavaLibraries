@@ -1,11 +1,11 @@
+package org.bvsd;
+
 /**
- * Pixel
  * This class provides methods and data to represent an RGB/RGBA pixel where each
  * channel is 8 bits, ranging from 0-255.
  * @author B. Willcutt 
  * @version 1.0
  */
-
 public class Pixel {
 
   /** Integer value from 0 to 255 representing the amount of red in a pixel */
@@ -16,26 +16,13 @@ public class Pixel {
   private int blue;
 
   /**
-   * Constructs a pixel with specified red, green, blue, and alpha values.
-   *
-   * @param r The amount of red (0-255).
-   * @param g The amount of green (0-255).
-   * @param b The amount of blue (0-255).
-   */
-  Pixel(int r, int g, int b, double a) {
-    red = clamp(r, 0, 255);
-    green = clamp(g, 0, 255);
-    blue = clamp(b, 0, 255);
-  }
-
-  /**
    * Constructs a pixel with specified red, green, and blue values, defaulting alpha to 1.0.
    *
    * @param r The amount of red (0-255).
    * @param g The amount of green (0-255).
    * @param b The amount of blue (0-255).
    */
-  Pixel(int r, int g, int b) {
+  public Pixel(int r, int g, int b) {
     red = clamp(r, 0, 255);
     green = clamp(g, 0, 255);
     blue = clamp(b, 0, 255);
@@ -46,7 +33,7 @@ public class Pixel {
    *
    * @param rgb The binary integer representing RGB values.
    */
-  Pixel(int rgb) {
+  public Pixel(int rgb) {
     red = (rgb >> 16) & 0xFF;
     green = (rgb >> 8) & 0xFF;
     blue = rgb & 0xFF;
