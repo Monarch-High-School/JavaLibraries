@@ -21,12 +21,12 @@ public class Grayscale extends Filter {
    */
   public void apply(Image image) {
     Pixel[][] pixels = image.getPixels();
-    for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; j < pixels[i].length; j++) {
-        int avg = (pixels[i][j].getRed() + pixels[i][j].getGreen() + pixels[i][j].getBlue()) / 3;
-        pixels[i][j].setRed(avg);
-        pixels[i][j].setGreen(avg);
-        pixels[i][j].setBlue(avg);  
+    for (int row = 0; row < pixels.length; row++) {
+      for (int col = 0; col < pixels[row].length; col++) {
+        int avg = (pixels[row][col].getRed() + pixels[row][col].getGreen() + pixels[row][col].getBlue()) / 3;
+        pixels[row][col].setRed(avg);
+        pixels[row][col].setGreen(avg);
+        pixels[row][col].setBlue(avg);  
       }
     }
   }
