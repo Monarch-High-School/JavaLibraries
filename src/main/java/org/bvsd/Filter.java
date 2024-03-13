@@ -19,7 +19,7 @@ public class Filter {
    * 
    * @param n The name of the Filter
    */
-  Filter(String n) {
+  public Filter(String n) {
     name = n;
   }
 
