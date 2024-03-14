@@ -1,29 +1,35 @@
 import org.bvsd.*;
 
 /**
- * Grayscale filter class that converts an image to grayscale.
+ * RemoveChannelFilter class that removes one color channel from an image.
  * Inherits from the Filter class.
  */
 public class RemoveChannelFilter extends Filter {
-
-  /**
-   * Constructs a Grayscale filter object.
-   */
-  public RemoveChannelFilter() {
-    super("Remove Channel");
-  }
 
   /** Used for choosing color */
   public enum COLOR {
       RED, GREEN, BLUE
   }
 
+  /** The channel to remove */
+  private COLOR channel;
+  
+  /**
+   * Constructs a RemoveChannelFilter filter object.
+   */
+  public RemoveChannelFilter(COLOR chan) {
+    super("RemoveChannel");
+    channel = chan;
+  }
+
+  
+
   /**
    * Zeroes out a specific channel in each pixel of an image.
-   * @param image The image to apply the grayscale filter to.
+   * @param image The image to apply the filter to.
    * @param channel The color of the channel to zero out.
    */
-  public void apply(Image image, COLOR channel) {
+  public void apply(Image image) {
     Pixel[][] pixels = image.getPixels();
     
     int mask;
@@ -46,4 +52,14 @@ public class RemoveChannelFilter extends Filter {
       }
     }
   }
+
+  /**
+   * Sets the channel to be removed from the image.
+   *
+   * @param chan The new channel to be removed.
+   */
+  public void setChannel(COLOR chan) {
+    channel = chan;
+  }
+  
 }

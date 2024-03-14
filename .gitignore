@@ -14,6 +14,8 @@ BrightDarkFilter.class
 RemoveChannelFilter.class
 RemoveChannelFilter$1.class
 RemoveChannelFilter$COLOR.class
+FlipHorizontalFilter.class
+FlipVerticalFilter.class
 **/.DS_Store
 testoutput/.DS_STORE
 src/test/resources/blank.jpg
