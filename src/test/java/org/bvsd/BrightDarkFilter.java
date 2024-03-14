@@ -14,9 +14,10 @@ public class BrightDarkFilter extends Filter {
     }
 
     /**
-     * 
-     * @param
-     * 
+     * Applies the brighten/darken filter to the given image.
+     * Adds the adjustment amount to each color component of each pixel in the image 
+     *
+     * @param image The image to apply the filter to.
      */
     public void apply(Image img) {
         Pixel [][] pixels = img.getPixels();

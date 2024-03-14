@@ -14,10 +14,10 @@ import java.io.IOException;
 
 public class ImageTester {
 
-    /** Used for choosing color */
-    private enum COLOR {
-        RED, GREEN, BLUE
-    };
+  /** Used for choosing color */
+  public enum COLOR {
+      RED, GREEN, BLUE
+  }
 
     public static void main(String args[]) {
 
@@ -26,6 +26,8 @@ public class ImageTester {
 
         // Declare all filters
         GrayscaleFilter grayscale = new GrayscaleFilter();
+        BrightDarkFilter brighten = new BrightDarkFilter(100);
+        RemoveChannelFilter removeChannel = new RemoveChannelFilter();
 
             // Create a blank RGB image as a PNG
         try {
@@ -93,10 +95,9 @@ public class ImageTester {
             // read in existing PNG image and bright all channels by 100 - save to testImageBright
         try {
             Image brightenPNG = new Image(path+"testImage.png");
-            pixels = brightenPNG.getPixels();
-            adjustBrightness(pixels, 100);
+            brighten.apply(brightenPNG);
             brightenPNG.saveToFile(path + "testImageBright.png", Image.FORMAT.PNG);
-            System.out.println("Successfully processed existing PNG file brighten.");
+            System.out.println(brighten.getApplyString());
     
         }
         catch (IOException e) {
@@ -106,10 +107,9 @@ public class ImageTester {
             // read in existing JPG image and bright all channels by 100 - save to testImageBright
         try {
             Image brightenJPG = new Image(path + "testImage.jpg");
-            pixels = brightenJPG.getPixels();
-            adjustBrightness(pixels, 100);
+            brighten.apply(brightenJPG);
             brightenJPG.saveToFile(path + "testImageBright.jpg", Image.FORMAT.JPG);
-            System.out.println("Successfully processed existing JPG file brighten.");
+            System.out.println(brighten.getApplyString());
 
         }
         catch (IOException e) {
@@ -119,10 +119,9 @@ public class ImageTester {
             // read in existing PNG image and 0 out red - save to testImageNoRed
         try {
             Image testImageNoRedPNG = new Image(path + "testImage.png");
-            pixels = testImageNoRedPNG.getPixels();
-            removeChannel(pixels, COLOR.RED);
+            removeChannel.apply(testImageNoRedPNG, RemoveChannelFilter.COLOR.RED);
             testImageNoRedPNG.saveToFile(path + "testImageNoRed.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file remove red channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoRed.png because " + e.getMessage());
@@ -131,10 +130,9 @@ public class ImageTester {
             // read in existing JPG image and 0 out red - save to testImageNoRed
         try {
             Image testImageNoRedJPG = new Image(path + "testImage.jpg");
-            pixels = testImageNoRedJPG.getPixels();
-            removeChannel(pixels, COLOR.RED);
+            removeChannel.apply(testImageNoRedJPG, RemoveChannelFilter.COLOR.RED);
             testImageNoRedJPG.saveToFile(path + "testImageNoRed.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file remove red channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoRed.jpg because " + e.getMessage());
@@ -143,10 +141,9 @@ public class ImageTester {
             // read in existing PNG image and 0 out green - save to testImageNoGreen
         try {
             Image testImageNoGreenPNG = new Image(path + "testImage.png");
-            pixels = testImageNoGreenPNG.getPixels();
-            removeChannel(pixels, COLOR.GREEN);
+            removeChannel.apply(testImageNoGreenPNG, RemoveChannelFilter.COLOR.GREEN);
             testImageNoGreenPNG.saveToFile(path + "testImageNoGreen.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file remove green channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoGreen.png because " + e.getMessage());
@@ -155,10 +152,9 @@ public class ImageTester {
             // read in existing JPG image and 0 out green - save to testImageNoGreen
         try {
             Image testImageNoGreenJPG = new Image(path + "testImage.jpg");
-            pixels = testImageNoGreenJPG.getPixels();
-            removeChannel(pixels, COLOR.GREEN);
+            removeChannel.apply(testImageNoGreenJPG, RemoveChannelFilter.COLOR.GREEN);
             testImageNoGreenJPG.saveToFile(path + "testImageNoGreen.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file remove green channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoGreen.jpg because " + e.getMessage());
@@ -167,10 +163,9 @@ public class ImageTester {
             // read in existing PNG image and 0 out blue - save to testImageNoBlue
         try {
             Image testImageNoBluePNG = new Image(path + "testImage.png");
-            pixels = testImageNoBluePNG.getPixels();
-            removeChannel(pixels, COLOR.BLUE);
+            removeChannel.apply(testImageNoBluePNG, RemoveChannelFilter.COLOR.BLUE);
             testImageNoBluePNG.saveToFile(path + "testImageNoBlue.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file remove blue channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoBlue.png because " + e.getMessage());
@@ -179,10 +174,9 @@ public class ImageTester {
             // read in existing JPG image and 0 out blue - save to testImageNoBlue
         try {
             Image testImageNoBlueJPG = new Image(path + "testImage.jpg");
-            pixels = testImageNoBlueJPG.getPixels();
-            removeChannel(pixels, COLOR.BLUE);
+            removeChannel.apply(testImageNoBlueJPG, RemoveChannelFilter.COLOR.BLUE);
             testImageNoBlueJPG.saveToFile(path + "testImageNoBlue.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file remove blue channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoBlue.jpg because " + e.getMessage());
@@ -273,48 +267,6 @@ public class ImageTester {
                 pixels[row][col].setBlue(rnd.nextInt(255));
             }
         }
-    }
-
-    /**
-     * Zeroes out a specific channel. Modifies a pixels reference.
-     * @param pixels 2D array of Pixel objects
-     * @param channel The color of the channel to zero out
-     */
-    private static void removeChannel (Pixel[][] pixels, COLOR channel) {
-        int mask;
-            // figure out which channel to zero out
-        switch(channel) {
-            case RED:
-                mask = 0x00FFFF;
-                break;
-            case GREEN:
-                mask = 0xFF00FF;
-                break;
-            case BLUE:
-            default:
-                mask = 0xFFFF00;
-        }
-    
-        for (int row = 0; row < pixels.length; row++) {
-            for (int col = 0; col < pixels[row].length; col++) {
-                pixels[row][col].setRGB(pixels[row][col].getRGB() & mask);
-            }
-        }
-    }
-
-    /**
-     * Increases or decreases the brightness of a 2D pixel array by a specified amount.
-     * @param pixels 2D array of Pixel objects
-     * @param adjustment the amount to adjust each pixel's brightness by
-     */
-    private static void adjustBrightness(Pixel [][] pixels, int adjustment) {
-      for (int i = 0; i < pixels.length; i++) {
-        for (int j = 0; j < pixels[i].length; j++) {
-          pixels[i][j].setRed(pixels[i][j].getRed() + adjustment);
-          pixels[i][j].setGreen(pixels[i][j].getGreen() + adjustment);
-          pixels[i][j].setBlue(pixels[i][j].getBlue() + adjustment);  
-        }
-      }
     }
 
     /**

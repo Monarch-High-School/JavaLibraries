@@ -9,7 +9,11 @@ Image$1.class
 Image$FORMAT.class
 Image$TYPE.class
 Filter.class
-Grayscale.class
+GrayscaleFilter.class
+BrightDarkFilter.class
+RemoveChannelFilter.class
+RemoveChannelFilter$1.class
+RemoveChannelFilter$COLOR.class
 **/.DS_Store
 testoutput/.DS_STORE
 src/test/resources/blank.jpg
