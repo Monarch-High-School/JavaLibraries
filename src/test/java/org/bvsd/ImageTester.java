@@ -14,11 +14,6 @@ import java.io.IOException;
 
 public class ImageTester {
 
-    /** Used for choosing color */
-    private enum COLOR {
-        RED, GREEN, BLUE
-    };
-
     public static void main(String args[]) {
 
         String path = "src/test/resources/";
@@ -26,6 +21,10 @@ public class ImageTester {
 
         // Declare all filters
         GrayscaleFilter grayscale = new GrayscaleFilter();
+        BrightDarkFilter brighten = new BrightDarkFilter(100);
+        RemoveChannelFilter removeChannel = new RemoveChannelFilter(RemoveChannelFilter.COLOR.RED);
+        FlipHorizontalFilter flipHorizontal = new FlipHorizontalFilter();
+        FlipVerticalFilter flipVertical = new FlipVerticalFilter();
 
             // Create a blank RGB image as a PNG
         try {
@@ -93,10 +92,9 @@ public class ImageTester {
             // read in existing PNG image and bright all channels by 100 - save to testImageBright
         try {
             Image brightenPNG = new Image(path+"testImage.png");
-            pixels = brightenPNG.getPixels();
-            adjustBrightness(pixels, 100);
+            brighten.apply(brightenPNG);
             brightenPNG.saveToFile(path + "testImageBright.png", Image.FORMAT.PNG);
-            System.out.println("Successfully processed existing PNG file brighten.");
+            System.out.println(brighten.getApplyString());
     
         }
         catch (IOException e) {
@@ -106,10 +104,9 @@ public class ImageTester {
             // read in existing JPG image and bright all channels by 100 - save to testImageBright
         try {
             Image brightenJPG = new Image(path + "testImage.jpg");
-            pixels = brightenJPG.getPixels();
-            adjustBrightness(pixels, 100);
+            brighten.apply(brightenJPG);
             brightenJPG.saveToFile(path + "testImageBright.jpg", Image.FORMAT.JPG);
-            System.out.println("Successfully processed existing JPG file brighten.");
+            System.out.println(brighten.getApplyString());
 
         }
         catch (IOException e) {
@@ -119,10 +116,9 @@ public class ImageTester {
             // read in existing PNG image and 0 out red - save to testImageNoRed
         try {
             Image testImageNoRedPNG = new Image(path + "testImage.png");
-            pixels = testImageNoRedPNG.getPixels();
-            removeChannel(pixels, COLOR.RED);
+            removeChannel.apply(testImageNoRedPNG);
             testImageNoRedPNG.saveToFile(path + "testImageNoRed.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file remove red channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoRed.png because " + e.getMessage());
@@ -131,22 +127,23 @@ public class ImageTester {
             // read in existing JPG image and 0 out red - save to testImageNoRed
         try {
             Image testImageNoRedJPG = new Image(path + "testImage.jpg");
-            pixels = testImageNoRedJPG.getPixels();
-            removeChannel(pixels, COLOR.RED);
+            removeChannel.apply(testImageNoRedJPG);
             testImageNoRedJPG.saveToFile(path + "testImageNoRed.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file remove red channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoRed.jpg because " + e.getMessage());
         }
+
+            // Update channel to green
+        removeChannel.setChannel(RemoveChannelFilter.COLOR.GREEN);
       
             // read in existing PNG image and 0 out green - save to testImageNoGreen
         try {
             Image testImageNoGreenPNG = new Image(path + "testImage.png");
-            pixels = testImageNoGreenPNG.getPixels();
-            removeChannel(pixels, COLOR.GREEN);
+            removeChannel.apply(testImageNoGreenPNG);
             testImageNoGreenPNG.saveToFile(path + "testImageNoGreen.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file remove green channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoGreen.png because " + e.getMessage());
@@ -155,22 +152,23 @@ public class ImageTester {
             // read in existing JPG image and 0 out green - save to testImageNoGreen
         try {
             Image testImageNoGreenJPG = new Image(path + "testImage.jpg");
-            pixels = testImageNoGreenJPG.getPixels();
-            removeChannel(pixels, COLOR.GREEN);
+            removeChannel.apply(testImageNoGreenJPG);
             testImageNoGreenJPG.saveToFile(path + "testImageNoGreen.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file remove green channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoGreen.jpg because " + e.getMessage());
         }
+
+            // Update channel to blue
+        removeChannel.setChannel(RemoveChannelFilter.COLOR.BLUE);
       
             // read in existing PNG image and 0 out blue - save to testImageNoBlue
         try {
             Image testImageNoBluePNG = new Image(path + "testImage.png");
-            pixels = testImageNoBluePNG.getPixels();
-            removeChannel(pixels, COLOR.BLUE);
+            removeChannel.apply(testImageNoBluePNG);
             testImageNoBluePNG.saveToFile(path + "testImageNoBlue.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file remove blue channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoBlue.png because " + e.getMessage());
@@ -179,10 +177,9 @@ public class ImageTester {
             // read in existing JPG image and 0 out blue - save to testImageNoBlue
         try {
             Image testImageNoBlueJPG = new Image(path + "testImage.jpg");
-            pixels = testImageNoBlueJPG.getPixels();
-            removeChannel(pixels, COLOR.BLUE);
+            removeChannel.apply(testImageNoBlueJPG);
             testImageNoBlueJPG.saveToFile(path + "testImageNoBlue.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file remove blue channel.");
+            System.out.println(removeChannel.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageNoBlue.jpg because " + e.getMessage());
@@ -213,10 +210,9 @@ public class ImageTester {
             // read in existing PNG image and flip horizontal - save to testImageFlipHorizontal
         try {
             Image testImageFlipHorizontalPNG = new Image(path + "testImage.png");
-            pixels = testImageFlipHorizontalPNG.getPixels();
-            flipHorizontal(pixels);
+            flipHorizontal.apply(testImageFlipHorizontalPNG);
             testImageFlipHorizontalPNG.saveToFile(path + "testImageFlipHorizontal.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file flip horizontal.");
+            System.out.println(flipHorizontal.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageFlipHorizontal.png because " + e.getMessage());
@@ -225,10 +221,9 @@ public class ImageTester {
             // read in existing JPG image and flip horizontal  - save to testImageFlipHorizontal
         try {
             Image testImageFlipHorizontalJPG = new Image(path + "testImage.jpg");
-            pixels = testImageFlipHorizontalJPG.getPixels();
-            flipHorizontal(pixels);
+            flipHorizontal.apply(testImageFlipHorizontalJPG);
             testImageFlipHorizontalJPG.saveToFile(path + "testImageFlipHorizontal.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file flip horizontal.");
+            System.out.println(flipHorizontal.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageFlipHorizontal.jpg because " + e.getMessage());
@@ -237,10 +232,9 @@ public class ImageTester {
             // read in existing PNG image and flip vertical - save to testImageFlipVertical
         try {
             Image testImageFlipVerticalPNG = new Image(path + "testImage.png");
-            pixels = testImageFlipVerticalPNG.getPixels();
-            flipVertical(pixels);
+            flipVertical.apply(testImageFlipVerticalPNG);
             testImageFlipVerticalPNG.saveToFile(path + "testImageFlipVertical.png", Image.FORMAT.PNG);    
-            System.out.println("Successfully processed existing PNG file flip vertical.");
+            System.out.println(flipVertical.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageFlipVertical.png because " + e.getMessage());
@@ -249,10 +243,9 @@ public class ImageTester {
             // read in existing JPG image and flip vertical - save to testImageFlipVertical
         try {
             Image testImageFlipVerticalJPG = new Image(path + "testImage.jpg");
-            pixels = testImageFlipVerticalJPG.getPixels();
-            flipVertical(pixels);
+            flipVertical.apply(testImageFlipVerticalJPG);
             testImageFlipVerticalJPG.saveToFile(path + "testImageFlipVertical.jpg", Image.FORMAT.JPG);    
-            System.out.println("Successfully processed existing JPG file flip vertical.");
+            System.out.println(flipVertical.getApplyString());
         }
         catch (IOException e) {
             System.err.println("Couldn't process testImageFlipVertical.jpg because " + e.getMessage());
@@ -274,74 +267,5 @@ public class ImageTester {
             }
         }
     }
-
-    /**
-     * Zeroes out a specific channel. Modifies a pixels reference.
-     * @param pixels 2D array of Pixel objects
-     * @param channel The color of the channel to zero out
-     */
-    private static void removeChannel (Pixel[][] pixels, COLOR channel) {
-        int mask;
-            // figure out which channel to zero out
-        switch(channel) {
-            case RED:
-                mask = 0x00FFFF;
-                break;
-            case GREEN:
-                mask = 0xFF00FF;
-                break;
-            case BLUE:
-            default:
-                mask = 0xFFFF00;
-        }
-    
-        for (int row = 0; row < pixels.length; row++) {
-            for (int col = 0; col < pixels[row].length; col++) {
-                pixels[row][col].setRGB(pixels[row][col].getRGB() & mask);
-            }
-        }
-    }
-
-    /**
-     * Increases or decreases the brightness of a 2D pixel array by a specified amount.
-     * @param pixels 2D array of Pixel objects
-     * @param adjustment the amount to adjust each pixel's brightness by
-     */
-    private static void adjustBrightness(Pixel [][] pixels, int adjustment) {
-      for (int i = 0; i < pixels.length; i++) {
-        for (int j = 0; j < pixels[i].length; j++) {
-          pixels[i][j].setRed(pixels[i][j].getRed() + adjustment);
-          pixels[i][j].setGreen(pixels[i][j].getGreen() + adjustment);
-          pixels[i][j].setBlue(pixels[i][j].getBlue() + adjustment);  
-        }
-      }
-    }
-
-    /**
-     * Vertically flips a 2D pixel array.
-     * @param pixels 2D array of Pixel objects
-     */
-    private static void flipVertical(Pixel[][] pixels) {
-      //Pixel [][] flipped = new Pixel[pixels.length][pixels[0].length];
-      for (int i = 0; i < pixels.length / 2; i++) {
-        Pixel[] tmp = pixels[i];
-        pixels[i] = pixels[pixels.length - i - 1];
-        pixels[pixels.length - i - 1] = tmp;
-      }
-    }
-
-    /**
-     * Horizontally flips a 2D pixel array.
-     * @param pixels 2D array of Pixel objects
-     */
-    private static void flipHorizontal(Pixel[][] pixels) {
-      //Pixel [][] flipped = new Pixel[pixels.length][pixels[0].length];
-      for (int i = 0; i < pixels.length; i++) {
-        for (int j = 0; j < pixels[i].length / 2; j++) {
-          Pixel tmp = pixels[i][j];
-          pixels[i][j] = pixels[i][pixels[i].length - j - 1];
-          pixels[i][pixels[i].length - j - 1] = tmp;
-        }
-      }
-    }
+  
  }
