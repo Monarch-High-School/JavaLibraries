@@ -1,0 +1,23 @@
+# mac .DS_Store
+**/.DS_Store
+
+# ignore .vscode
+.vscode/
+
+# ignore the lib/ directory
+lib/
+
+# any .class or .jar files
+**.class
+**.jar
+
+# replit/nix environment
+*.replit
+*.nix
+
+# ignore every file in the resources directory except two
+src/test/resources/Graphics/*
+src/test/resources/Image/*
+!src/test/resources/Image/testImage.jpg
+!src/test/resources/Image/testImage.png
+

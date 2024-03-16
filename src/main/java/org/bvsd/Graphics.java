@@ -1,13 +1,13 @@
+package org.bvsd;
 /**
- * MoHiGraphics
+ * Graphics
  * This class is intended for beginning Java programming students
  * who would like to engage in simple graphics programming. It 
  * provides more explicit methods and more intuitive parameters
  * that wrap around JFree's SVG library (which itself is a subclass 
  * of the Java AWT Library
  * @author Monarch High School - 2023-2024 Capstone Course
- * @version August 24, 2023
- * @since 0.1
+ * @version 1.0
  */
 
 import java.awt.*;
@@ -16,7 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.geom.AffineTransform;
 
-public class MoHiGraphics {
+public class Graphics {
 
   /** instance of JFree's SVG Graphics library **/
   private SVGGraphics2D svgGraphics;
@@ -34,7 +34,7 @@ public class MoHiGraphics {
    * @param width The width of the image in pixels
    * @param height The height of the image in pixels
    */
-  public MoHiGraphics(double width, double height) {
+  public Graphics(double width, double height) {
       // set up svggraphics object
     svgGraphics = new SVGGraphics2D(width, height);
 
