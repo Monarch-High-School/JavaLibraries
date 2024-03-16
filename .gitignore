@@ -1,6 +1,12 @@
 # mac .DS_Store
 **/.DS_Store
 
+# ignore .vscode
+.vscode/
+
+# ignore the lib/ directory
+lib/
+
 # any .class or .jar files
 **.class
 **.jar
