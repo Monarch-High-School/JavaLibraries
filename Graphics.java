@@ -1,6 +1,6 @@
 package org.bvsd;
 /**
- * MoHiGraphics
+ * Graphics
  * This class is intended for beginning Java programming students
  * who would like to engage in simple graphics programming. It 
  * provides more explicit methods and more intuitive parameters
