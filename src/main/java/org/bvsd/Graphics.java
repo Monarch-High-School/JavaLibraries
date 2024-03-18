@@ -1,4 +1,12 @@
 package org.bvsd;
+
+
+import java.awt.*;
+import org.jfree.svg.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.awt.geom.AffineTransform;
+
 /**
  * Graphics
  * This class is intended for beginning Java programming students
@@ -9,22 +17,18 @@ package org.bvsd;
  * @author Monarch High School - 2023-2024 Capstone Course
  * @version 1.0
  */
-
-import java.awt.*;
-import org.jfree.svg.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.awt.geom.AffineTransform;
-
 public class Graphics {
 
   /** instance of JFree's SVG Graphics library **/
   private SVGGraphics2D svgGraphics;
 
-  /** font styles **/
+  /** Plain font style */
   public static final int PLAIN = 0;
+  /** Bold font style */
   public static final int BOLD = 1;
+  /** Italic font style */
   public static final int ITALIC = 2;
+  /** Bold italic font style */
   public static final int BOLD_ITALIC = 3;
   
   
@@ -218,9 +222,6 @@ public class Graphics {
     svgGraphics.drawLine(x1, y1, x2, y2);
   }
   
-  public void setTransparent(boolean transparent) {
-
-  }
  /**
   * Clears Canvas
   */
