@@ -1,4 +1,12 @@
 package org.bvsd;
+
+
+import java.awt.*;
+import org.jfree.svg.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.awt.geom.AffineTransform;
+
 /**
  * Graphics
  * This class is intended for beginning Java programming students
@@ -9,13 +17,6 @@ package org.bvsd;
  * @author Monarch High School - 2023-2024 Capstone Course
  * @version 1.0
  */
-
-import java.awt.*;
-import org.jfree.svg.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.awt.geom.AffineTransform;
-
 public class Graphics {
 
   /** instance of JFree's SVG Graphics library **/
