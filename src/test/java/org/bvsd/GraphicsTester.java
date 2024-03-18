@@ -16,7 +16,7 @@ public class GraphicsTester {
 
   public static void main(String[] args) {
       // set path for output
-    String path = "test/resources/Graphics/";
+    String path = "src/test/resources/Graphics/";
     // declare graphics object
     Graphics graphics;
 
