@@ -21,10 +21,13 @@ public class Graphics {
   /** instance of JFree's SVG Graphics library **/
   private SVGGraphics2D svgGraphics;
 
-  /** font styles **/
+  /** Plain font style */
   public static final int PLAIN = 0;
+  /** Bold font style */
   public static final int BOLD = 1;
+  /** Italic font style */
   public static final int ITALIC = 2;
+  /** Bold italic font style */
   public static final int BOLD_ITALIC = 3;
   
   
