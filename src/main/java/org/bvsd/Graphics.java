@@ -218,9 +218,6 @@ public class Graphics {
     svgGraphics.drawLine(x1, y1, x2, y2);
   }
   
-  public void setTransparent(boolean transparent) {
-
-  }
  /**
   * Clears Canvas
   */
