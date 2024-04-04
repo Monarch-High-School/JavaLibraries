@@ -98,6 +98,17 @@ public class Image {
     }
 
     /**
+     * Sets the pixel matrix for the image. Use this if you need to 
+     * create a new pixel matrix (resizing, rotating rectangular, 
+     * kernel convolution). It will overwrite the pixels array.
+     * 
+     * @param pxls the new 2D array of Pixel objects
+     */
+    public void setPixels(Pixel[][] pxls) {
+        pixels = pxls;
+    }
+
+    /**
      * Writes the current pixel array to file.
      * 
      * @param filename The path to outfile
