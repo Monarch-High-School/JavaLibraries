@@ -44,7 +44,7 @@
      // test triangle
      graphics = new Graphics(200, 200);
      graphics.drawTriangle(50, 50, 50);
-     graphics.saveToFile(path + "EqTriangle.svg");
+     graphics.saveToFile(path + "equilateralTriangle.svg");
      
      // test irregular triangle
      graphics = new Graphics(200, 200);
