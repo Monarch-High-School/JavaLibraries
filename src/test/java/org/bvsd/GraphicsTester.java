@@ -28,7 +28,7 @@
  
        // test oval
      graphics = new Graphics(200,200);
-         graphics.drawOval(50,50,50,100);
+     graphics.drawOval(50,50,50,100);
      graphics.saveToFile(path + "oval.svg");
          
        // test square
@@ -94,9 +94,9 @@
      graphics.drawSquare(50, 50, 100);
      graphics.saveToFile(path + "rotate.svg");
  
-         // test clearCanvas
-         graphics.clearCanvas();
-         graphics.saveToFile(path + "clearCanvas.svg");
+        // test clearCanvas
+     graphics.clearCanvas();
+     graphics.saveToFile(path + "clearCanvas.svg");
          
      // test text
      graphics = new Graphics(200, 200);
