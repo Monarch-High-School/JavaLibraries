@@ -238,11 +238,11 @@ public class Graphics {
     int [] yCoords = new int[] {centerY - valY, centerY - 2*valY, centerY - valY, centerY + valY, centerY + 2*valY, centerY + valY};
    
     svgGraphics.setColor(lineColor);
-    svgGraphics.drawPolygon(xCoords, yCoords, 5);
+    svgGraphics.drawPolygon(xCoords, yCoords, 6);
 
     if (fillColor != null) {
       svgGraphics.setColor(fillColor);
-      svgGraphics.fillPolygon(xCoords, yCoords, 5);
+      svgGraphics.fillPolygon(xCoords, yCoords, 6);
       svgGraphics.setColor(lineColor);
     }    
   }
