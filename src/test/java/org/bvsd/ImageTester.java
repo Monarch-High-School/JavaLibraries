@@ -16,7 +16,7 @@ public class ImageTester {
 
     public static void main(String args[]) {
 
-        String path = "src/test/resources/";
+        String path = "src/test/resources/Images";
         Pixel[][] pixels;
 
         // Declare all filters

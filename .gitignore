@@ -17,9 +17,9 @@ lib/
 
 # ignore every file in the resources directory except two
 src/test/resources/Graphics/*
-src/test/resources/Image/*
-!src/test/resources/Image/testImage.jpg
-!src/test/resources/Image/testImage.png
+src/test/resources/Images/*
+!src/test/resources/Images/testImage.jpg
+!src/test/resources/Images/testImage.png
 
 # ignore the classes in the target directory
 target/*
