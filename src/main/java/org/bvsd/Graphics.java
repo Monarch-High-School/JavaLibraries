@@ -22,6 +22,11 @@ public class Graphics {
   /** instance of JFree's SVG Graphics library **/
   private SVGGraphics2D svgGraphics;
 
+  /** the line color **/
+  private Color lineColor;
+  /** the shape fill color - if null, this will be transparent **/
+  private Color fillColor;
+
   /** Plain font style */
   public static final int PLAIN = 0;
   /** Bold font style */
@@ -39,11 +44,18 @@ public class Graphics {
    * @param height The height of the image in pixels
    */
   public Graphics(double width, double height) {
+      // set fill to transparent
+    fillColor = null;
+      // set line to black
+    lineColor = Color.BLACK; 
+
       // set up svggraphics object
     svgGraphics = new SVGGraphics2D(width, height);
 
       // set default stroke to 1
     svgGraphics.setStroke(new BasicStroke(1.0f));
+      // set default color to black in SVG
+    svgGraphics.setColor(lineColor);
   }
 
   /** 
@@ -53,7 +65,14 @@ public class Graphics {
    * @param radius the radius of the circle
    */
   public void drawCircle(int centerX, int centerY, int radius) {
-    svgGraphics.drawOval(centerX-radius, centerY-radius, radius*2, radius*2);
+    svgGraphics.setColor(lineColor);
+    svgGraphics.drawOval(centerX-radius, centerY-radius, radius*2, radius*2);  
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillOval(centerX-radius, centerY-radius, radius*2, radius*2);
+      svgGraphics.setColor(lineColor);
+    }
   }
 
 
@@ -66,7 +85,14 @@ public class Graphics {
 	**/
 
   public void drawOval(int centerX, int centerY, int width, int height) {
+    svgGraphics.setColor(lineColor);
     svgGraphics.drawOval(centerX-(width/2),centerY-(height/2),width,height);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillOval(centerX-(width/2),centerY-(height/2),width,height);
+      svgGraphics.setColor(lineColor);
+    }
   }
 
   
@@ -80,7 +106,14 @@ public class Graphics {
     int[] xCoords = new int[] {leftTopX, leftTopX+size, leftTopX+size, leftTopX};
     int[] yCoords = new int[] {leftTopY, leftTopY, leftTopY+size, leftTopY+size};
     
+    svgGraphics.setColor(lineColor);
     svgGraphics.drawPolygon(xCoords, yCoords, 4);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillPolygon(xCoords, yCoords, 4);
+      svgGraphics.setColor(lineColor);
+    }      
   }
 
   /** 
@@ -94,7 +127,14 @@ public class Graphics {
     int[] xCoords = new int[]{leftTopX, leftTopX+width, leftTopX+width, leftTopX};
     int[] yCoords = new int[]{leftTopY, leftTopY, leftTopY+height, leftTopY+height};
 
+    svgGraphics.setColor(lineColor);
     svgGraphics.drawPolygon(xCoords, yCoords, 4);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillPolygon(xCoords, yCoords, 4);
+      svgGraphics.setColor(lineColor);
+    }    
   }
 
   /**
@@ -104,10 +144,17 @@ public class Graphics {
    * @param size the side length of the triangle
    */
   public void drawTriangle(int x, int y, int size) {
-     int[] xCoords = new int[] {x-size/2, x+size/2 , x};
+    int[] xCoords = new int[] {x-size/2, x+size/2 , x};
     int[] yCoords = new int[] {(int)((size/2)/Math.sqrt(3)) + y, (int)((size/2)/Math.sqrt(3)) + y, (int)( y - (2*( (size/2) / (Math.sqrt(3) )))  ) };
     
+    svgGraphics.setColor(lineColor);
     svgGraphics.drawPolygon(xCoords, yCoords, 3);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillPolygon(xCoords, yCoords, 3);
+      svgGraphics.setColor(lineColor);
+    }    
   }
 
  /**
@@ -122,9 +169,17 @@ public class Graphics {
   public void drawIrregularTriangle(int x1, int y1, int x2, int y2, int x3, int y3) {
     int[] xCoords = new int[] {x1,x2,x3};
     int[] yCoords = new int[] {y1,y2,y3};
-    svgGraphics.drawPolygon(xCoords,yCoords,3);
 
+    svgGraphics.setColor(lineColor);
+    svgGraphics.drawPolygon(xCoords, yCoords, 3);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillPolygon(xCoords, yCoords, 3);
+      svgGraphics.setColor(lineColor);
+    }    
   }
+
   /**
   * Draws a regular pentagon: so, the shape has 5 equal sides and 5 
   * interior angles, each with a measure of 72 degrees
@@ -152,7 +207,16 @@ public class Graphics {
       pointsX[i] = (int) (xangle * radius) + centerX;
       pointsY[i] = (int) (yangle * radius) + centerY;
     }
+
+    svgGraphics.setColor(lineColor);
     svgGraphics.drawPolygon(pointsX, pointsY, 5);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillPolygon(pointsX, pointsY, 5);
+      svgGraphics.setColor(lineColor);
+    }    
+
   }
 
  /**
@@ -170,9 +234,17 @@ public class Graphics {
   {
     int valY = (int) (distToVertex /2);
     int valX = (int)(distToVertex * Math.cos(Math.PI/6));
-    int [] xPts = new int[] {centerX - valX, centerX,centerX + valX, centerX + valX, centerX, centerX - valX};
-    int [] yPts = new int[] {centerY - valY, centerY - 2*valY, centerY - valY, centerY + valY, centerY + 2*valY, centerY + valY};
-    svgGraphics.drawPolygon(xPts, yPts, 6);
+    int [] xCoords = new int[] {centerX - valX, centerX,centerX + valX, centerX + valX, centerX, centerX - valX};
+    int [] yCoords = new int[] {centerY - valY, centerY - 2*valY, centerY - valY, centerY + valY, centerY + 2*valY, centerY + valY};
+   
+    svgGraphics.setColor(lineColor);
+    svgGraphics.drawPolygon(xCoords, yCoords, 5);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillPolygon(xCoords, yCoords, 5);
+      svgGraphics.setColor(lineColor);
+    }    
   }
 
     /**
@@ -186,7 +258,14 @@ public class Graphics {
      *
      */
    public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
+    svgGraphics.setColor(lineColor);
     svgGraphics.drawArc(x,y,width,height,startAngle,arcAngle);
+
+    if (fillColor != null) {
+      svgGraphics.setColor(fillColor);
+      svgGraphics.fillArc(x, y, width, height, startAngle, arcAngle);
+      svgGraphics.setColor(lineColor);
+    }
   }
   
    /**
@@ -197,18 +276,25 @@ public class Graphics {
     */
    public void drawOctagon(int centerX, int centerY, int distToVertex)  {
       double angleIncrement = 2 * Math.PI / 8; // Angle between each vertex
-      int[] xPts = new int[8];
-      int[] yPts = new int[8];
+      int[] xCoords = new int[8];
+      int[] yCoords = new int[8];
     
       for (int i = 0; i < 8; i++) {
           double angle = i * angleIncrement;
           int x = (int) (centerX + distToVertex * Math.cos(angle));
           int y = (int) (centerY + distToVertex * Math.sin(angle));
-          xPts[i] = x;
-          yPts[i] = y;
+          xCoords[i] = x;
+          yCoords[i] = y;
       }
     
-      svgGraphics.drawPolygon(xPts, yPts, 8);
+      svgGraphics.setColor(lineColor);
+      svgGraphics.drawPolygon(xCoords, yCoords, 8);
+
+      if (fillColor != null) {
+        svgGraphics.setColor(fillColor);
+        svgGraphics.fillPolygon(xCoords, yCoords, 8);
+        svgGraphics.setColor(lineColor);
+      }
   }
 
   /** 
@@ -230,12 +316,41 @@ public class Graphics {
 	}
 	
  /**
-   * Sets the stroke thickness
-   * @param size size of stroke in pixels.
+   * Sets the line thickness
+   * @param size size of line in pixels.
    */
   public void setLineSize(int size) {
     svgGraphics.setStroke(new BasicStroke((float)size));
   } 
+
+  /**
+   * Sets the line color.
+   * 
+   * @param r The red component of the color.
+   * @param g The green component of the color.
+   * @param b The blue component of the color.
+   */
+  public void setLineColor(int r, int g, int b) {
+    lineColor = new Color(r, g, b);
+  }
+
+  /**
+   * Sets the shape fill color.
+   * 
+   * @param r The red component of the color.
+   * @param g The green component of the color.
+   * @param b The blue component of the color.
+   */
+  public void setFillColor(int r, int g, int b) {
+    fillColor = new Color(r, g, b);
+  }
+
+  /**
+   * Sets the shape fill color.
+   */
+  public void setFillTransparent() {
+    fillColor = null;
+  }
 
   /** 
    * Rotates the canvas by (degree).
@@ -262,7 +377,6 @@ public class Graphics {
    * @param style the the style of the text (plain,bold,italic) uses the public static constants of the class
    * @param font the font of the text 
    * Fonts that work are: "Dialog", "DialogInput", "Monospaced", "SansSerif", "Serif"
-
    */
 
   public void drawText(String txt, int x, int y, int size, int red, int green, int blue, int style, String font)
@@ -303,11 +417,11 @@ public class Graphics {
       svgGraphics.drawString(String.valueOf(i), 0, offset);
     }
     
-      // reset strok to black and 0.25
+      // reset stroke to black and 0.25
     svgGraphics.setColor(Color.BLACK);
     svgGraphics.setStroke(new BasicStroke(1.0f));
   }
-  
+
   /**
    * Saves the current image to a file given by 
    * filename in SVG format.

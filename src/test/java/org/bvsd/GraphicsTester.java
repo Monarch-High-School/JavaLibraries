@@ -83,8 +83,38 @@
      graphics = new Graphics(200,200);
      graphics.setLineSize(20);
      graphics.drawSquare(50, 50, 100);
-     graphics.saveToFile(path + "strokeSquare.svg");
- 
+     graphics.saveToFile(path + "thickLine.svg");
+
+      // test line color change
+     graphics = new Graphics(200,200);
+     graphics.setLineSize(1);
+      // red 
+     graphics.setLineColor(255, 0, 0);
+     graphics.drawSquare(50, 50, 50);
+      // green
+     graphics.setLineColor(0, 255, 0);
+     graphics.drawSquare(100, 100, 50);
+     // blue
+     graphics.setLineColor(0, 0, 255);
+     graphics.drawSquare(150, 150, 50);
+    
+     graphics.saveToFile(path + "colorLineSquares.svg");
+
+      // test fill color
+      graphics = new Graphics(200,200);
+      graphics.setLineColor(0, 0, 0);
+       // red 
+      graphics.setFillColor(255, 0, 0);
+      graphics.drawSquare(50, 50, 50);
+       // green
+      graphics.setFillColor(0, 255, 0);
+      graphics.drawSquare(100, 100, 50);
+      // blue
+      graphics.setFillColor(0, 0, 255);
+      graphics.drawSquare(150, 150, 50);
+     
+      graphics.saveToFile(path + "colorFillSquares.svg");
+
      // test rotate
      graphics = new Graphics(200, 200);
      graphics.drawSquare(50, 50, 100);
