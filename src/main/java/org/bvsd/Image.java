@@ -2,8 +2,8 @@
 package org.bvsd;
 
 import java.awt.image.BufferedImage;
-import javax.imageio.*;
 import java.io.*;
+import javax.imageio.*;
 
 /**
  * The Image class provides an easy-to-use interface for introductory Java students to
@@ -88,20 +88,15 @@ public class Image {
     }
 
     /**
-     * Gets the pixel data for the image as a reference.
-     * Modifying the return value of this array will modify the image.
-     * 
+     * Gets the pixel data for the image as a copy of the pixels.
      * @return 2D array of Pixel objects
      */
     public Pixel[][] getPixels() {
-        return pixels;
+        return pixels.clone();
     }
 
     /**
-     * Sets the pixel matrix for the image. Use this if you need to 
-     * create a new pixel matrix (resizing, rotating rectangular, 
-     * kernel convolution). It will overwrite the pixels array.
-     * 
+     * Sets the pixel matrix for the image.
      * @param pxls the new 2D array of Pixel objects
      */
     public void setPixels(Pixel[][] pxls) {
