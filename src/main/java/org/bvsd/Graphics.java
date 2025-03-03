@@ -305,6 +305,7 @@ public class Graphics {
    * @param y2 The y-coordinate of the ending point
    */
   public void drawLine(int x1, int y1, int x2, int y2) {
+    svgGraphics.setColor(lineColor);
     svgGraphics.drawLine(x1, y1, x2, y2);
   }
   
