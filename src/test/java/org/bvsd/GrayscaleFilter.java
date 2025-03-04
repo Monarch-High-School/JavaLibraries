@@ -2,24 +2,10 @@ import org.bvsd.*;
 
 /**
  * Grayscale filter class that converts an image to grayscale.
- * Inherits from the Filter class.
  */
-public class GrayscaleFilter extends Filter {
+public class GrayscaleFilter implements Filter {
 
-  /**
-   * Constructs a Grayscale filter object.
-   */
-  public GrayscaleFilter() {
-    super("Grayscale");
-  }
-
-  /**
-   * Applies the grayscale filter to the given image.
-   * Converts each pixel in the image to grayscale by averaging its RGB values.
-   *
-   * @param image The image to apply the grayscale filter to.
-   */
-  public void apply(Image image) {
+  public Image apply(Image image) {
     Pixel[][] pixels = image.getPixels();
     for (int row = 0; row < pixels.length; row++) {
       for (int col = 0; col < pixels[row].length; col++) {
@@ -29,5 +15,6 @@ public class GrayscaleFilter extends Filter {
         pixels[row][col].setBlue(avg);  
       }
     }
+    return new Image(pixels);
   }
 }

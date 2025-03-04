@@ -2,9 +2,8 @@ import org.bvsd.*;
 
 /**
  * RemoveChannelFilter class that removes one color channel from an image.
- * Inherits from the Filter class.
  */
-public class RemoveChannelFilter extends Filter {
+public class RemoveChannelFilter implements Filter {
 
   /** Used for choosing color */
   public enum COLOR {
@@ -15,21 +14,15 @@ public class RemoveChannelFilter extends Filter {
   private COLOR channel;
   
   /**
-   * Constructs a RemoveChannelFilter filter object.
+   * Constructor
+   * @chan The channel to remove
    */
   public RemoveChannelFilter(COLOR chan) {
-    super("RemoveChannel");
     channel = chan;
   }
 
   
-
-  /**
-   * Zeroes out a specific channel in each pixel of an image.
-   * @param image The image to apply the filter to.
-   * @param channel The color of the channel to zero out.
-   */
-  public void apply(Image image) {
+  public Image apply(Image image) {
     Pixel[][] pixels = image.getPixels();
     
     int mask;
@@ -51,6 +44,7 @@ public class RemoveChannelFilter extends Filter {
         pixels[row][col].setRGB(pixels[row][col].getRGB() & mask);
       }
     }
+    return new Image(pixels);
   }
 
   /**
@@ -61,5 +55,4 @@ public class RemoveChannelFilter extends Filter {
   public void setChannel(COLOR chan) {
     channel = chan;
   }
-  
 }

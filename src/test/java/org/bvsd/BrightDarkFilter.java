@@ -3,23 +3,20 @@ import org.bvsd.*;
 /**
  * Creates a filter that globally adjusts all rgb channels by the same amount.
  */
-public class BrightDarkFilter extends Filter {
+public class BrightDarkFilter implements Filter {
     
     /** The amount to adjust by **/
     private int adjust;
 
+    /**
+     * Constructor 
+     * @param adj The amount to adjust by
+     */
     public BrightDarkFilter(int adj) {
-        super("Brighten");
         adjust = adj;
     }
 
-    /**
-     * Applies the brighten/darken filter to the given image.
-     * Adds the adjustment amount to each color component of each pixel in the image 
-     *
-     * @param image The image to apply the filter to.
-     */
-    public void apply(Image img) {
+    public Image apply(Image img) {
         Pixel [][] pixels = img.getPixels();
         for (Pixel [] row : pixels) {
             for (Pixel px : row) {
@@ -28,6 +25,7 @@ public class BrightDarkFilter extends Filter {
                 px.setBlue(px.getBlue() + adjust);
             }
         }
+        return new Image(pixels);
     }
 
     /**
