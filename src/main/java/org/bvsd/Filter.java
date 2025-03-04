@@ -7,7 +7,7 @@ package org.bvsd;
  * @author J. Cihlar
  * @version 2.0
  */
-interface Filter {
+public interface Filter {
 
 
   /**
