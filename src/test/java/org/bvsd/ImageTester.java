@@ -19,13 +19,6 @@ public class ImageTester {
         String path = "src/test/resources/Images/";
         Pixel[][] pixels;
 
-        // Declare all filters
-        GrayscaleFilter grayscale = new GrayscaleFilter();
-        BrightDarkFilter brighten = new BrightDarkFilter(100);
-        RemoveChannelFilter removeChannel = new RemoveChannelFilter(RemoveChannelFilter.COLOR.RED);
-        FlipHorizontalFilter flipHorizontal = new FlipHorizontalFilter();
-        FlipVerticalFilter flipVertical = new FlipVerticalFilter();
-
             // Create a blank RGB image as a PNG
         try {
             Image blankImagePNG = new Image(800, 600);
@@ -89,168 +82,37 @@ public class ImageTester {
         catch (IOException e) {
             System.err.println("Couldn't process testImageCopy.jpg because " + e.getMessage());
         }
-            // read in existing PNG image and bright all channels by 100 - save to testImageBright
-        try {
-            Image brightenPNG = new Image(path+"testImage.png");
-            brighten.apply(brightenPNG);
-            brightenPNG.saveToFile(path + "testImageBright.png", Image.FORMAT.PNG);
-            System.out.println(brighten.getApplyString());
+
+        // Declare all filters
+        GrayscaleFilter grayscale = new GrayscaleFilter();
+        BrightDarkFilter brighten = new BrightDarkFilter(100);
+        RemoveChannelFilter removeChannel = new RemoveChannelFilter(RemoveChannelFilter.COLOR.RED);
+        FlipHorizontalFilter flipHorizontal = new FlipHorizontalFilter();
+        FlipVerticalFilter flipVertical = new FlipVerticalFilter();
+            // add filters to an array of filters
+        Filter [] filters = new Filter[] {grayscale, brighten, removeChannel, flipHorizontal, flipVertical};
+            // set up parallel array of filenames
+        String [] filenames = new String[] {"testImageGrayscale.png", "testImageBright.png", "testImageRemoveChannel.png", "testImageFlipHorizontal.png", "testImageFlipVertical.png"};
+             // check that arrays are same length
+        if (filters.length != filenames.length){
+            System.err.println("Filters array is not same length as filenames array.");
+            return;
+        }
+            // loop through filters, apply, and write out
+        for (int i = 0; i < filters.length; i++)
+            try {
+                    // read in test image
+                Image test = new Image(path+"testImage.png");
+                    // get changed image
+                Image changed = filters[i].apply(test);
+                    // write to file
+                changed.saveToFile(path + filenames[i], Image.FORMAT.PNG);
+            System.out.println("Successfully processed " + filenames[i]);
     
         }
         catch (IOException e) {
-            System.err.println("Couldn't process testImageBright.png because " + e.getMessage());
+            System.err.println("Couldn't process " + filenames[i]+ " because " + e.getMessage());
         }
-        
-            // read in existing JPG image and bright all channels by 100 - save to testImageBright
-        try {
-            Image brightenJPG = new Image(path + "testImage.jpg");
-            brighten.apply(brightenJPG);
-            brightenJPG.saveToFile(path + "testImageBright.jpg", Image.FORMAT.JPG);
-            System.out.println(brighten.getApplyString());
-
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageBright.jpg because " + e.getMessage());
-        }
-      
-            // read in existing PNG image and 0 out red - save to testImageNoRed
-        try {
-            Image testImageNoRedPNG = new Image(path + "testImage.png");
-            removeChannel.apply(testImageNoRedPNG);
-            testImageNoRedPNG.saveToFile(path + "testImageNoRed.png", Image.FORMAT.PNG);    
-            System.out.println(removeChannel.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageNoRed.png because " + e.getMessage());
-        }
-
-            // read in existing JPG image and 0 out red - save to testImageNoRed
-        try {
-            Image testImageNoRedJPG = new Image(path + "testImage.jpg");
-            removeChannel.apply(testImageNoRedJPG);
-            testImageNoRedJPG.saveToFile(path + "testImageNoRed.jpg", Image.FORMAT.JPG);    
-            System.out.println(removeChannel.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageNoRed.jpg because " + e.getMessage());
-        }
-
-            // Update channel to green
-        removeChannel.setChannel(RemoveChannelFilter.COLOR.GREEN);
-      
-            // read in existing PNG image and 0 out green - save to testImageNoGreen
-        try {
-            Image testImageNoGreenPNG = new Image(path + "testImage.png");
-            removeChannel.apply(testImageNoGreenPNG);
-            testImageNoGreenPNG.saveToFile(path + "testImageNoGreen.png", Image.FORMAT.PNG);    
-            System.out.println(removeChannel.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageNoGreen.png because " + e.getMessage());
-        }
-
-            // read in existing JPG image and 0 out green - save to testImageNoGreen
-        try {
-            Image testImageNoGreenJPG = new Image(path + "testImage.jpg");
-            removeChannel.apply(testImageNoGreenJPG);
-            testImageNoGreenJPG.saveToFile(path + "testImageNoGreen.jpg", Image.FORMAT.JPG);    
-            System.out.println(removeChannel.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageNoGreen.jpg because " + e.getMessage());
-        }
-
-            // Update channel to blue
-        removeChannel.setChannel(RemoveChannelFilter.COLOR.BLUE);
-      
-            // read in existing PNG image and 0 out blue - save to testImageNoBlue
-        try {
-            Image testImageNoBluePNG = new Image(path + "testImage.png");
-            removeChannel.apply(testImageNoBluePNG);
-            testImageNoBluePNG.saveToFile(path + "testImageNoBlue.png", Image.FORMAT.PNG);    
-            System.out.println(removeChannel.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageNoBlue.png because " + e.getMessage());
-        }
-      
-            // read in existing JPG image and 0 out blue - save to testImageNoBlue
-        try {
-            Image testImageNoBlueJPG = new Image(path + "testImage.jpg");
-            removeChannel.apply(testImageNoBlueJPG);
-            testImageNoBlueJPG.saveToFile(path + "testImageNoBlue.jpg", Image.FORMAT.JPG);    
-            System.out.println(removeChannel.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageNoBlue.jpg because " + e.getMessage());
-        }
-
-            // read in existing PNG image and make grayscale - save to testImageGrayscale
-        try {
-            Image testImageGrayscalePNG = new Image(path + "testImage.png");
-            grayscale.apply(testImageGrayscalePNG);
-            testImageGrayscalePNG.saveToFile(path + "testImageGrayscale.png", Image.FORMAT.PNG);    
-            System.out.println(grayscale.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageGrayscale.png because " + e.getMessage());
-        }
-      
-            // read in existing JPG image and make grayscale - save to testImageGrayscale
-        try {
-            Image testImageGrayscaleJPG = new Image(path + "testImage.jpg");
-            grayscale.apply(testImageGrayscaleJPG);
-            testImageGrayscaleJPG.saveToFile(path + "testImageGrayscale.jpg", Image.FORMAT.JPG);    
-            System.out.println(grayscale.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageGrayscale.jpg because " + e.getMessage());
-        }
-            
-            // read in existing PNG image and flip horizontal - save to testImageFlipHorizontal
-        try {
-            Image testImageFlipHorizontalPNG = new Image(path + "testImage.png");
-            flipHorizontal.apply(testImageFlipHorizontalPNG);
-            testImageFlipHorizontalPNG.saveToFile(path + "testImageFlipHorizontal.png", Image.FORMAT.PNG);    
-            System.out.println(flipHorizontal.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageFlipHorizontal.png because " + e.getMessage());
-        }
-
-            // read in existing JPG image and flip horizontal  - save to testImageFlipHorizontal
-        try {
-            Image testImageFlipHorizontalJPG = new Image(path + "testImage.jpg");
-            flipHorizontal.apply(testImageFlipHorizontalJPG);
-            testImageFlipHorizontalJPG.saveToFile(path + "testImageFlipHorizontal.jpg", Image.FORMAT.JPG);    
-            System.out.println(flipHorizontal.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageFlipHorizontal.jpg because " + e.getMessage());
-        }
-      
-            // read in existing PNG image and flip vertical - save to testImageFlipVertical
-        try {
-            Image testImageFlipVerticalPNG = new Image(path + "testImage.png");
-            flipVertical.apply(testImageFlipVerticalPNG);
-            testImageFlipVerticalPNG.saveToFile(path + "testImageFlipVertical.png", Image.FORMAT.PNG);    
-            System.out.println(flipVertical.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageFlipVertical.png because " + e.getMessage());
-        }
-
-            // read in existing JPG image and flip vertical - save to testImageFlipVertical
-        try {
-            Image testImageFlipVerticalJPG = new Image(path + "testImage.jpg");
-            flipVertical.apply(testImageFlipVerticalJPG);
-            testImageFlipVerticalJPG.saveToFile(path + "testImageFlipVertical.jpg", Image.FORMAT.JPG);    
-            System.out.println(flipVertical.getApplyString());
-        }
-        catch (IOException e) {
-            System.err.println("Couldn't process testImageFlipVertical.jpg because " + e.getMessage());
-        }
-      
     }
 
     /**
