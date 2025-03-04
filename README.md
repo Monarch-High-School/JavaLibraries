@@ -1,8 +1,8 @@
 # Boulder Valley School District - Java Libraries
 
-Version 1.0- Monarch High School, Coding Capstone Class, 2023-2024
+Version 2.0 - Monarch High School, Coding Capstone Class, 2023-2024 and J. Cihlar
 
-©2024
+©2024-2025
 
 ## Overview
 This Java library was developed for introductory AP Computer Science A students to engage in graphics programming without having to learn the nuances of the AWT library. The goal is to expose an easier-to-use set of methods that will generate simple shapes and process images in a more intuitive way. 
@@ -46,13 +46,14 @@ and saves the file. This does not use the `Filter` class.
 ```java
 try {
     Image img = new Image("testImage.png");
-    Pixel [][] pxls = img.getPixels();
-    for (int row = 0; row < pxls.length; row++) {
-        for (int col = 0; col < pxls[col].length; col++) {
-            pxls[row][col].setRed(255);
+    Pixel [][] pixels = img.getPixels();
+    for (int row = 0; row < pixels.length; row++) {
+        for (int col = 0; col < pixels[col].length; col++) {
+            pixels[row][col].setRed(255);
         }
     }
-    img.saveToFile("testMaxRed.jpg", Image.FORMAT.JPG);
+    Image newImage = new Image(pixels);
+    newImage.saveToFile("testMaxRed.jpg", Image.FORMAT.JPG);
 
 }
 catch(IOException e) {
@@ -65,14 +66,15 @@ This example creates a blank image 1024x1024. It sets every other column to blac
 ```java
 try {
     Image img = new Image(1024, 1024);
-    Pixel [][] pxls = img.getPixels();
-    for (int row = 0; row < pxls.length; row++) {
+    Pixel [][] pixels = img.getPixels();
+    for (int row = 0; row < pixels.length; row++) {
         for (int col = 0; col < pxls[col].length; col+=2) {
-            pxls[row][col].setRed(0);
-            pxls[row][col].setGreen(0);
-            pxls[row][col].setBlue(0);
+            pixels[row][col].setRed(0);
+            pixels[row][col].setGreen(0);
+            pixels[row][col].setBlue(0);
         }
     }
+    img.setPixels(pixels);
     img.saveToFile("testEveryOther.jpg", Image.FORMAT.JPG);
 
 }
@@ -82,24 +84,20 @@ catch(IOException e) {
 ``` 
 
 ### Filter
-Implement a Filter by subclassing the parent class, adding specific instance variables,
-creating an appropriate constructor (which calls the super constructor), and overrides
-the `apply()` method. 
+Implement a Filter by implementing the `Filter` interface. There is one required method that has the signature: `public Image apply(Image img);`
 
-Construct this object from another class and apply to the images you want to modify.
-
+The filter below maxes out a given color specification.
 ```java
-public class MaxChannelFilter extends Filter {
+public class MaxChannelFilter implements Filter {
     public enum COLOR {RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA};
     private COLOR channel;
 
     public MaxChannelFilter(COLOR chan) {
-        super("Max Channel Filter");
         channel = chan;
     }
 
-    public void apply(Image img) {
-        Pixel[][] pxls = img.getPixels();
+    public Image apply(Image img) {
+        Pixel[][] pixels = img.getPixels();
         int mask;
         switch (channel) {
             case RED:
@@ -122,11 +120,12 @@ public class MaxChannelFilter extends Filter {
             default:
                 mask = 0x0;
         }
-        for (int row = 0; row < pxls.length; row++) {
-            for (int col = 0; col < pxls[row].length; col++) {
-                pxls[row][col].setRGB(img[row][col].getRGB() | mask);
+        for (int row = 0; row < pixels.length; row++) {
+            for (int col = 0; col < pixels[row].length; col++) {
+                pixels[row][col].setRGB(pixels[row][col].getRGB() | mask);
             }    
         }
+        return new Image(pixels);
     }
 }
 ```
