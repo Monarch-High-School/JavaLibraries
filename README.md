@@ -19,8 +19,7 @@ The Graphics class utilizes JFree organization's SVG library so that the output 
 Before building, the [JFree SVG library](https://www.jfree.org/jfreesvg/) (Download link) should be downloaded as a `.jar` file and added to the classpath. 
 
 ## Building
-No build manager is used because of the range of environments found in a K-12 environment. An already-tbuilt `.jar`
-file can be found in the `target` folder.
+No build manager is used because of the range of environments found in a K-12 environment. An already-built `.jar` file can be found in the `target` folder.
 
 ## Usage
 Once built (or if the `.jar` file is downloaded), add the `.jar` file to the classpath.
