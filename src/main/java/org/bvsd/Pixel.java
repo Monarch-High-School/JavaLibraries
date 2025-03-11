@@ -77,7 +77,7 @@ public class Pixel {
   }
 
   /**
-   * Sets the amount of red in the pixel.
+   * Sets the amount of red in the pixel. Clamps to range [0 ... 255].
    *
    * @param r The new red value (0-255).
    */
@@ -86,7 +86,7 @@ public class Pixel {
   }
 
   /**
-   * Sets the amount of green in the pixel.
+   * Sets the amount of green in the pixel. Clamps to range [0 ... 255].
    *
    * @param g The new green value (0-255).
    */
@@ -95,7 +95,7 @@ public class Pixel {
   }
 
   /**
-   * Sets the amount of blue in the pixel.
+   * Sets the amount of blue in the pixel. Clamps to range [0 ... 255].
    *
    * @param b The new blue value (0-255).
    */
