@@ -11,6 +11,7 @@ import org.bvsd.*;
 
 import java.util.Random;
 import java.io.IOException;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class ImageTester {
 
@@ -86,13 +87,14 @@ public class ImageTester {
         // Declare all filters
         GrayscaleFilter grayscale = new GrayscaleFilter();
         BrightDarkFilter brighten = new BrightDarkFilter(100);
+        MaxChannelFilter maxChannel = new MaxChannelFilter(MaxChannelFilter.COLOR.GREEN);
         RemoveChannelFilter removeChannel = new RemoveChannelFilter(RemoveChannelFilter.COLOR.RED);
         FlipHorizontalFilter flipHorizontal = new FlipHorizontalFilter();
         FlipVerticalFilter flipVertical = new FlipVerticalFilter();
             // add filters to an array of filters
-        Filter [] filters = new Filter[] {grayscale, brighten, removeChannel, flipHorizontal, flipVertical};
+        Filter [] filters = new Filter[] {grayscale, brighten, maxChannel, removeChannel, flipHorizontal, flipVertical};
             // set up parallel array of filenames
-        String [] filenames = new String[] {"testImageGrayscale.png", "testImageBright.png", "testImageRemoveChannel.png", "testImageFlipHorizontal.png", "testImageFlipVertical.png"};
+        String [] filenames = new String[] {"testImageGrayscale.png", "testImageBright.png","testImageMaxGreen.png", "testImageRemoveChannel.png", "testImageFlipHorizontal.png", "testImageFlipVertical.png"};
              // check that arrays are same length
         if (filters.length != filenames.length){
             System.err.println("Filters array is not same length as filenames array.");
