@@ -88,7 +88,7 @@ Implement a Filter by implementing the `Filter` interface. There is one required
 The filter below maxes out a given color specification.
 ```java
 public class MaxChannelFilter implements Filter {
-    public enum COLOR {RED, GREEN, BLUE, YELLOW, CYAN, MAGENTA};
+    public enum COLOR {RED, GREEN, BLUE};
     private COLOR channel;
 
     public MaxChannelFilter(COLOR chan) {
@@ -108,14 +108,6 @@ public class MaxChannelFilter implements Filter {
             case BLUE:
                 mask = 0xFF;
                 break;
-            case YELLOW:
-                mask = 0xFFFF00;
-                break;
-            case CYAN:
-                mask = 0xFFFF;
-                break;
-            case MAGENTA:
-                mask = 0xFF00FF;
             default:
                 mask = 0x0;
         }
