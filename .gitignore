@@ -24,4 +24,4 @@ src/test/resources/Images/*
 # ignore the classes in the target directory
 target/*
 !target/org.bvsd.javalibrary-1.0.jar
-
+!target/org.bvsd.javalibrary-2.0.jar
