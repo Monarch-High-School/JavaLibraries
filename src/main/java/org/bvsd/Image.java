@@ -89,10 +89,17 @@ public class Image {
 
     /**
      * Gets the pixel data for the image as a copy of the pixels.
+     * This creates a copy of the pixel data.
      * @return 2D array of Pixel objects
      */
     public Pixel[][] getPixels() {
-        return pixels.clone();
+        Pixel [][] px = new Pixel[pixels.length][pixels[0].length];
+        for (int row = 0; row < pixels.length; row++) {
+            for (int col = 0; col < pixels[0].length; col++) {
+                px[row][col] = new Pixel(pixels[row][col].getRGB());
+            }
+        }
+        return px;
     }
 
     /**
