@@ -59,17 +59,17 @@ public class Graphics {
   }
 
   /**
-   * @return double The width of the graphics object
+   * @return int The width of the graphics object
    */
-  public double getWidth() {
-    return svgGraphics.getWidth();
+  public int getWidth() {
+    return (int)svgGraphics.getWidth();
   }
 
   /**
-   * @return double The height of the graphics object
+   * @return int The height of the graphics object
    */
-  public double getHeight() {
-    return svgGraphics.getHeight();
+  public int getHeight() {
+    return (int)svgGraphics.getHeight();
   }
 
   /** 
