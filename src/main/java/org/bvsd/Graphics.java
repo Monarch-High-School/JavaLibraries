@@ -15,7 +15,7 @@ import java.awt.geom.AffineTransform;
  * that wrap around JFree's SVG library (which itself is a subclass 
  * of the Java AWT Library
  * @author Monarch High School - 2023-2024 Capstone Course
- * @version 1.0
+ * @version 2.0
  */
 public class Graphics {
 
@@ -38,7 +38,7 @@ public class Graphics {
   
   
   /**
-   * Creates a new MoHiGraphics object.
+   * Creates a new Graphics object.
    *
    * @param width The width of the image in pixels
    * @param height The height of the image in pixels
@@ -56,6 +56,20 @@ public class Graphics {
     svgGraphics.setStroke(new BasicStroke(1.0f));
       // set default color to black in SVG
     svgGraphics.setColor(lineColor);
+  }
+
+  /**
+   * @return double The width of the graphics object
+   */
+  public double getWidth() {
+    return svgGraphics.getWidth();
+  }
+
+  /**
+   * @return double The height of the graphics object
+   */
+  public double getHeight() {
+    return svgGraphics.getHeight();
   }
 
   /** 
